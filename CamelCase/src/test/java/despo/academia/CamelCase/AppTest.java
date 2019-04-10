@@ -33,11 +33,11 @@ public class AppTest
  
     
     public void testCamelCaseSimples() {    	
-    	assertEquals(App.converterCamelCase("nome").get(0),"nome");
+    	assertEquals("nome",App.converterCamelCase("nome"));
     }
     
     public void testCamelCaseSimplesPrimeiraLetraMaiuscula() {    	
-    	assertEquals(App.converterCamelCase("Nome").get(0),"nome");
+    	assertEquals("nome",App.converterCamelCase("Nome").get(0));
     }
     
     public void testCamelCaseComposto() {
@@ -45,6 +45,14 @@ public class AppTest
     	lista.add("nome");
     	lista.add("composto");
     	
-    	assertEquals(App.converterCamelCase("nomeComposto"), lista);
+    	assertEquals(lista, App.converterCamelCase("nomeComposto"));
+    }
+    
+    public void testCamelCaseCompostoPrimeiraLetraMaiuscula() {
+    	List<String> lista = new ArrayList<String>();
+    	lista.add("nome");
+    	lista.add("composto");
+    	
+    	assertEquals(lista, App.converterCamelCase("NomeComposto"));
     }
 }

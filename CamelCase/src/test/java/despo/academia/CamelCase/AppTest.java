@@ -27,16 +27,12 @@ public class AppTest
     {
         return new TestSuite( AppTest.class );
     }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
     
     public void testCamelCaseSimples() {    	
     	assertEquals(App.converterCamelCase("nome").get(0),"nome");
+    }
+    
+    public void testCamelCaseSimplesPrimeiraLetraMaiuscula() {    	
+    	assertEquals(App.converterCamelCase("Nome").get(0),"nome");
     }
 }

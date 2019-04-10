@@ -9,14 +9,15 @@ import java.util.List;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+    public static void main( String[] args ){
+    	
     }
     
     public static List<String> converterCamelCase(String original){
     	List<String> lista = new ArrayList<String>();    	
-    	lista.add(original.toLowerCase());
+    	for (String palavra : original.split("(?<=[a-z])(?=[A-Z])")) {
+    		lista.add(palavra.toLowerCase());
+    	}
     	return lista;
     };
 }

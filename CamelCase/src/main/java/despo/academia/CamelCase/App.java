@@ -16,7 +16,7 @@ public class App
     
     public static List<String> converterCamelCase(String original){
     	List<String> lista = new ArrayList<String>();    	
-    	lista.add(original);
+    	lista.add(original.toLowerCase());
     	return lista;
     };
 }

@@ -1,5 +1,8 @@
 package despo.academia.CamelCase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -27,6 +30,7 @@ public class AppTest
     {
         return new TestSuite( AppTest.class );
     }
+ 
     
     public void testCamelCaseSimples() {    	
     	assertEquals(App.converterCamelCase("nome").get(0),"nome");
@@ -34,5 +38,13 @@ public class AppTest
     
     public void testCamelCaseSimplesPrimeiraLetraMaiuscula() {    	
     	assertEquals(App.converterCamelCase("Nome").get(0),"nome");
+    }
+    
+    public void testCamelCaseComposto() {
+    	List<String> lista = new ArrayList<String>();
+    	lista.add("nome");
+    	lista.add("composto");
+    	
+    	assertEquals(App.converterCamelCase("nomeComposto"), lista);
     }
 }

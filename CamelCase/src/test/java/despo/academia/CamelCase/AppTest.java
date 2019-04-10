@@ -37,6 +37,6 @@ public class AppTest
     }
     
     public void testCamelCaseSimples() {    	
-    	assertEquals(App.converterCamelCase("nome"),"nome");
+    	assertEquals(App.converterCamelCase("nome").get(0),"nome");
     }
 }

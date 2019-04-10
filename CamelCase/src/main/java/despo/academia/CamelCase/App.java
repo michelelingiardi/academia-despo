@@ -1,5 +1,6 @@
 package despo.academia.CamelCase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +15,8 @@ public class App
     }
     
     public static List<String> converterCamelCase(String original){
-    	return null;
+    	List<String> lista = new ArrayList<String>();    	
+    	lista.add(original);
+    	return lista;
     };
 }

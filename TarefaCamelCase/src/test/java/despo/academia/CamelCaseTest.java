@@ -1,9 +1,11 @@
-import static org.junit.Assert.assertTrue;
+package despo.academia;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.Test;
+
+import despo.academia.ConversorCamelCase;
 import junit.framework.TestCase;
 
 public class CamelCaseTest extends TestCase{

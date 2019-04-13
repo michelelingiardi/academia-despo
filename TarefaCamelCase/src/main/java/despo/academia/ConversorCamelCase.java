@@ -7,11 +7,9 @@ import java.util.stream.Collectors;
 
 public class ConversorCamelCase {
   public static List<String> converterCamelCase(String original) {
-    
     return criarLista(original).stream()
-        .map((String item) -> {
-          if (!isSigla(item)) item = item.toLowerCase();
-          return item;
+        .map(item -> {
+          return tratarTexto(item);          
         })
         .collect(Collectors.toList());
 	}
@@ -22,6 +20,11 @@ public class ConversorCamelCase {
 
   private static boolean isSigla(String item) {
     return item.matches("([A-Z]{2,})");
+  }
+
+  private static String tratarTexto(String item) {
+    if (!isSigla(item)) item = item.toLowerCase();
+    return item;
   }
   
 }

@@ -28,5 +28,15 @@ public class ConversorCamelCaseTest extends TestCase{
 	  assertEquals(
         new ArrayList<String>(Arrays.asList("nome","composto")),
         ConversorCamelCase.converterCamelCase("nomeComposto"));
+	  assertEquals(
+        new ArrayList<String>(Arrays.asList("nome","composto")),
+        ConversorCamelCase.converterCamelCase("NomeComposto"));
+	}
+	
+	@Test
+	public void testCamelCaseSigla() {
+    assertEquals(
+        new ArrayList<String>(Arrays.asList("CPF")),
+        ConversorCamelCase.converterCamelCase("CPF"));
 	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ConversorCamelCase {
+  
   public static List<String> converterCamelCase(String original) {
     return criarLista(original).stream()
         .map(item -> {
@@ -15,14 +16,18 @@ public class ConversorCamelCase {
 	}
 
   private static List<String> criarLista(String original) {
-    return new ArrayList<String>(Arrays.asList(original.split("(?<=[a-z])(?=[A-Z])")));
+    return new ArrayList<String>(Arrays.asList(original.split(getRegex())));
+  }
+
+  private static String getRegex() {
+    return "(?=[A-Z])(?<=[a-z])|(?<=[A-Z])(?=[A-Z][a-z])";
   }
   
   private static String tratarTexto(String item) {
     if (!isSigla(item)) item = item.toLowerCase();
     return item;
   }
-
+  
   private static boolean isSigla(String item) {
     return item.matches("([A-Z]{2,})");
   }

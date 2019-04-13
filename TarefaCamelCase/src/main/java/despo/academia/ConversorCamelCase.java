@@ -17,14 +17,14 @@ public class ConversorCamelCase {
   private static List<String> criarLista(String original) {
     return new ArrayList<String>(Arrays.asList(original.split("(?<=[a-z])(?=[A-Z])")));
   }
-
-  private static boolean isSigla(String item) {
-    return item.matches("([A-Z]{2,})");
-  }
-
+  
   private static String tratarTexto(String item) {
     if (!isSigla(item)) item = item.toLowerCase();
     return item;
+  }
+
+  private static boolean isSigla(String item) {
+    return item.matches("([A-Z]{2,})");
   }
   
 }

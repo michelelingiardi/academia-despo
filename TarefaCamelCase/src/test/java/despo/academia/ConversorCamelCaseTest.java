@@ -22,4 +22,11 @@ public class ConversorCamelCaseTest extends TestCase{
 	      new ArrayList<String>(Arrays.asList("nome")),
 	      ConversorCamelCase.converterCamelCase("Nome"));
 	}
+	
+	@Test
+	public void testCamelCaseComposto() {
+	  assertEquals(
+        new ArrayList<String>(Arrays.asList("nome","composto")),
+        ConversorCamelCase.converterCamelCase("nomeComposto"));
+	}
 }

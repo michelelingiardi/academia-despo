@@ -1,16 +1,27 @@
 package despo.academia;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ConversorCamelCase {
   public static List<String> converterCamelCase(String original) {
-    List<String> lista = new ArrayList<String>();
-    String[] separated = original.split("(?<=[a-z])(?=[A-Z])");
-    for (String palavra : separated) {
-      if (!palavra.matches("([A-Z]{2,})")) palavra = palavra.toLowerCase();
-      lista.add(palavra);
-    }    
-    return lista;
+    
+    return criarLista(original).stream()
+        .map((String item) -> {
+          if (!isSigla(item)) item = item.toLowerCase();
+          return item;
+        })
+        .collect(Collectors.toList());
 	}
+
+  private static List<String> criarLista(String original) {
+    return new ArrayList<String>(Arrays.asList(original.split("(?<=[a-z])(?=[A-Z])")));
+  }
+
+  private static boolean isSigla(String item) {
+    return item.matches("([A-Z]{2,})");
+  }
+  
 }

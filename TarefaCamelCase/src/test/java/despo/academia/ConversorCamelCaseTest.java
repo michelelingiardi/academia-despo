@@ -39,4 +39,14 @@ public class ConversorCamelCaseTest extends TestCase{
         new ArrayList<String>(Arrays.asList("CPF")),
         ConversorCamelCase.converterCamelCase("CPF"));
 	}
+	
+	@Test
+	public void testCamelCaseSiglaComposto() {
+	  assertEquals(
+        new ArrayList<String>(Arrays.asList("numero","CPF")),
+        ConversorCamelCase.converterCamelCase("numeroCPF"));
+    assertEquals(
+        new ArrayList<String>(Arrays.asList("numero","CPF","contribuinte")),
+        ConversorCamelCase.converterCamelCase("numeroCPFContribuinte"));
+	}
 }

@@ -20,7 +20,7 @@ public class ConversorCamelCase {
   }
 
   private static String getRegex() {
-    return "(?=[A-Z])(?<=[a-z])|(?<=[A-Z])(?=[A-Z][a-z])";
+    return "(?=[A-Z]|[0-9])(?<=[a-z])|(?<=[A-Z]|[0-9])(?=[A-Z][a-z])";
   }
   
   private static String tratarTexto(String item) {

@@ -50,10 +50,15 @@ public class ConversorCamelCaseTest extends TestCase{
         ConversorCamelCase.converterCamelCase("numeroCPFContribuinte"));
 	}
 	
-	 @Test
-	  public void testCamelCaseNumero() {
-	    assertEquals(
-	        new ArrayList<String>(Arrays.asList("recupera","10","primeiros")),
-	        ConversorCamelCase.converterCamelCase("recupera10Primeiros"));
-	  }
+  @Test
+  public void testCamelCaseNumero() {
+    assertEquals(
+        new ArrayList<String>(Arrays.asList("recupera","10","primeiros")),
+        ConversorCamelCase.converterCamelCase("recupera10Primeiros"));
+  }
+	 
+  @Test(expected=NumeroNoInicioException)
+  public void testCamelCaseInvalidoNumeroNoInicio() {
+    ConversorCamelCase.converterCamelCase("10Primeiros")
+  }
 }

@@ -64,4 +64,12 @@ public class ConversorCamelCaseTest extends TestCase{
       fail();
     } catch(NumeroNoInicioException e) {}
   }
+  
+  @Test
+  public void testCamelCaseInvalidoCaractereEspecial() {
+    try { 
+      ConversorCamelCase.converterCamelCase("nome#Composto");
+      fail();
+    } catch(CaractereEspecialException e) {}
+  }
 }

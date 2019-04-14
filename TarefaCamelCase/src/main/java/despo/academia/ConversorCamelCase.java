@@ -8,8 +8,11 @@ import java.util.stream.Collectors;
 public class ConversorCamelCase {
   
   public static List<String> converterCamelCase(String original) {
+    if (original.matches("^[0-9].+$")) 
+      throw new NumeroNoInicioException("Inválido - não deve começar com números.");
+    
     return criarLista(original).stream()
-        .map(item -> {
+        .map(item -> {          
           return tratarTexto(item);          
         })
         .collect(Collectors.toList());

@@ -49,4 +49,11 @@ public class ConversorCamelCaseTest extends TestCase{
         new ArrayList<String>(Arrays.asList("numero","CPF","contribuinte")),
         ConversorCamelCase.converterCamelCase("numeroCPFContribuinte"));
 	}
+	
+	 @Test
+	  public void testCamelCaseNumero() {
+	    assertEquals(
+	        new ArrayList<String>(Arrays.asList("recupera","10","primeiros")),
+	        ConversorCamelCase.converterCamelCase("recupera10Primeiros"));
+	  }
 }

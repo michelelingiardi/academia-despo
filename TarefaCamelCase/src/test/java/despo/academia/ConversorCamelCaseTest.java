@@ -57,8 +57,11 @@ public class ConversorCamelCaseTest extends TestCase{
         ConversorCamelCase.converterCamelCase("recupera10Primeiros"));
   }
 	 
-  @Test(expected=NumeroNoInicioException.class)
+  @Test
   public void testCamelCaseInvalidoNumeroNoInicio() {
-    ConversorCamelCase.converterCamelCase("10Primeiros")
+    try { 
+      ConversorCamelCase.converterCamelCase("10Primeiros");
+      fail();
+    } catch(NumeroNoInicioException e) {}
   }
 }

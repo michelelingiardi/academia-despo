@@ -16,7 +16,9 @@ public class ConversorCamelCase {
 
   private static void validarEntrada(String original) {
     if (original.matches("^[0-9].+$")) 
-      throw new NumeroNoInicioException("Inválido - não deve começar com números.");    
+      throw new NumeroNoInicioException("Inválido - não deve começar com números.");  
+    if (!original.matches("^[a-zA-Z0-9]*$"))
+      throw new CaractereEspecialException("Inválido - caracteres especiais não são permitidos, somente letras e números.");
   }
 
   private static List<String> criarLista(String original) {

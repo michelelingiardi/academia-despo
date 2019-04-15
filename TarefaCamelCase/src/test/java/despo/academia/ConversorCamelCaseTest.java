@@ -9,51 +9,56 @@ import despo.academia.ConversorCamelCase;
 import junit.framework.TestCase;
 
 public class ConversorCamelCaseTest extends TestCase{
+  
 	@Test
 	public void testCamelCaseSimples() {
 		assertEquals(
-				new ArrayList<String>(Arrays.asList("nome")),
+				resultadoEsperado(new String[]{"nome"}),
 				ConversorCamelCase.converterCamelCase("nome"));
 	}
-	
-	@Test
+
+  @Test
 	public void testCamelCaseLetraMaiuscula() {
 	  assertEquals(
-	      new ArrayList<String>(Arrays.asList("nome")),
+	      resultadoEsperado(new String[]{"nome"}),
 	      ConversorCamelCase.converterCamelCase("Nome"));
 	}
 	
 	@Test
 	public void testCamelCaseComposto() {
 	  assertEquals(
-        new ArrayList<String>(Arrays.asList("nome","composto")),
+	      resultadoEsperado(new String[]{"nome","composto"}),
         ConversorCamelCase.converterCamelCase("nomeComposto"));
-	  assertEquals(
-        new ArrayList<String>(Arrays.asList("nome","composto")),
-        ConversorCamelCase.converterCamelCase("NomeComposto"));
 	}
+	
+  @Test
+  public void testCamelCaseCompostoLetraMaiuscula() {
+    assertEquals(
+        resultadoEsperado(new String[]{"nome","composto"}),
+        ConversorCamelCase.converterCamelCase("NomeComposto"));
+  }
 	
 	@Test
 	public void testCamelCaseSigla() {
     assertEquals(
-        new ArrayList<String>(Arrays.asList("CPF")),
+        resultadoEsperado(new String[]{"CPF"}),
         ConversorCamelCase.converterCamelCase("CPF"));
 	}
 	
 	@Test
 	public void testCamelCaseSiglaComposto() {
 	  assertEquals(
-        new ArrayList<String>(Arrays.asList("numero","CPF")),
+	      resultadoEsperado(new String[]{"numero","CPF"}),
         ConversorCamelCase.converterCamelCase("numeroCPF"));
     assertEquals(
-        new ArrayList<String>(Arrays.asList("numero","CPF","contribuinte")),
+        resultadoEsperado(new String[]{"numero","CPF","contribuinte"}),
         ConversorCamelCase.converterCamelCase("numeroCPFContribuinte"));
 	}
 	
   @Test
   public void testCamelCaseNumero() {
     assertEquals(
-        new ArrayList<String>(Arrays.asList("recupera","10","primeiros")),
+        resultadoEsperado(new String[]{"recupera","10","primeiros"}),
         ConversorCamelCase.converterCamelCase("recupera10Primeiros"));
   }
 	 
@@ -71,5 +76,9 @@ public class ConversorCamelCaseTest extends TestCase{
       ConversorCamelCase.converterCamelCase("nome#Composto");
       fail();
     } catch(CaractereEspecialException e) {}
+  }
+  
+  private ArrayList<String> resultadoEsperado(String[] itens) {
+    return new ArrayList<String>(Arrays.asList(itens));
   }
 }

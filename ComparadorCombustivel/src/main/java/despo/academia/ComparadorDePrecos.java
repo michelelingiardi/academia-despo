@@ -1,5 +1,6 @@
 package despo.academia;
 
+import foo.IntegracaoConsultaCombustivelIndisponivelException;
 import foo.PrecoCombustivelWS;
 
 public class ComparadorDePrecos {
@@ -14,11 +15,19 @@ public class ComparadorDePrecos {
   }
 
   public double obterPrecoEtanol() {
-    return this.precoCombustivel.obterPrecoCombustivel(ETANOL);
+    try {
+      return this.precoCombustivel.obterPrecoCombustivel(ETANOL);
+    } catch (IntegracaoConsultaCombustivelIndisponivelException e) {
+      throw new ConsultaCombustivelIndisponivelException();
+    }
   }
 
   public double obterPrecoGasolina() {
-    return this.precoCombustivel.obterPrecoCombustivel(GASOLINA);
+    try {
+      return this.precoCombustivel.obterPrecoCombustivel(GASOLINA);
+    } catch (IntegracaoConsultaCombustivelIndisponivelException e) {
+      throw new ConsultaCombustivelIndisponivelException();
+    }
   }
 
   public String comparar() {

@@ -22,7 +22,7 @@ public class ComparadorDePrecos {
   }
 
   public String comparar() {
-    double valor = (this.obterPrecoEtanol() * 100 / this.obterPrecoGasolina()) - 100 * -1 ;
-    return (valor <= 70) ? MSG_ETANOL : MSG_GASOLINA;
+    double valor = (this.obterPrecoEtanol() / this.obterPrecoGasolina());
+    return (valor <= 0.7) ? MSG_ETANOL : MSG_GASOLINA;
   }
 }

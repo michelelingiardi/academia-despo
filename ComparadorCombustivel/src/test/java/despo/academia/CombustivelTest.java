@@ -15,6 +15,13 @@ class CombustivelTest {
     assertTrue(precoEtanol >= 1 && precoEtanol <= 10);
   }
   
+  @Test
+  @DisplayName("Obter preço da Gasolina")
+  void obterPrecoGasolinaTest() {
+    double precoGasolina = criarComparadorDePrecos().obterPrecoGasolina();
+    assertTrue(precoGasolina >= 1 && precoGasolina <= 10);
+  }
+  
   private ComparadorDePrecos criarComparadorDePrecos() {
     return new ComparadorDePrecos(new PrecoCombustivelWS());
   }

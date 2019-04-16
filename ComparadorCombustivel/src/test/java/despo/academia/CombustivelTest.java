@@ -34,13 +34,15 @@ class CombustivelTest {
   @Test
   @DisplayName("Comparar preços com mock - vantagem Etanol")
   void mensagemCompreEtanol() {
-    ComparadorDePrecos comparadorDePrecos 
-      = new ComparadorDePrecos(new PrecoCombustivelMock(70, 100));
-    String mensagem = comparadorDePrecos.comparar();
+    String mensagem = criarComparadorDePrecosMock(70,100).comparar();
     assertTrue(mensagem.equals(ComparadorDePrecos.MSG_ETANOL));
   }
   
   private ComparadorDePrecos criarComparadorDePrecos() {
     return new ComparadorDePrecos(new PrecoCombustivelWS());
+  }
+  
+  private ComparadorDePrecos criarComparadorDePrecosMock(double etanol, double gasolina) {
+    return new ComparadorDePrecos(new PrecoCombustivelMock(etanol, gasolina));
   }
 }

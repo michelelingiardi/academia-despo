@@ -3,7 +3,7 @@ package despo.academia;
 import foo.PrecoCombustivelWS;
 
 public class ComparadorDePrecos {
-  public static final String ETANOL = "E";
+  private static final String ETANOL = "E";
   private static final String GASOLINA = "G";
   private PrecoCombustivelWS precoCombustivel;
 

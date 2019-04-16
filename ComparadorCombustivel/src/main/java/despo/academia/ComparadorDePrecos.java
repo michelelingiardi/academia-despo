@@ -4,6 +4,7 @@ import foo.PrecoCombustivelWS;
 
 public class ComparadorDePrecos {
   public static final String ETANOL = "E";
+  private static final String GASOLINA = "G";
   private PrecoCombustivelWS precoCombustivel;
 
   public ComparadorDePrecos(PrecoCombustivelWS precoCombustivel) {
@@ -12,5 +13,9 @@ public class ComparadorDePrecos {
 
   public double obterPrecoEtanol() {
     return this.precoCombustivel.obterPrecoCombustivel(ETANOL);
+  }
+
+  public double obterPrecoGasolina() {
+    return this.precoCombustivel.obterPrecoCombustivel(GASOLINA);
   }
 }

@@ -45,11 +45,21 @@ class CombustivelTest {
     assertTrue(mensagem.equals("Compre gasolina."));
   }
   
+  @Test
+  @DisplayName("Falha na integração")
+  void consultaCombustivelIndisponivelTest() {
+    assertThrows(ConsultaCombustivelIndisponivelException, criarComparadorDePrecosMock().comparar())
+  }
+  
   private ComparadorDePrecos criarComparadorDePrecos() {
     return new ComparadorDePrecos(new PrecoCombustivelWS());
   }
   
   private ComparadorDePrecos criarComparadorDePrecosMock(double etanol, double gasolina) {
     return new ComparadorDePrecos(new PrecoCombustivelMock(etanol, gasolina));
+  }
+  
+  private ComparadorDePrecos criarComparadorDePrecosMock() {
+    return new ComparadorDePrecos(new PrecoCombustivelExceptionMock());
   }
 }

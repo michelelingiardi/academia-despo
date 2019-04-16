@@ -12,7 +12,7 @@ class CombustivelTest {
   @DisplayName("Obter preço do Etanol")
   void obterPrecoEtanolTest() {
     Combustivel combustivel = new Combustivel(new PrecoCombustivel());
-    double precoEtanol = combustivel.obterPrecoEtanol(Combustivel.ETANOL);
+    double precoEtanol = combustivel.obterPrecoEtanol();
     assertTrue(precoEtanol >= 1 && precoEtanol <= 10);
   }
 }

@@ -1,7 +1,7 @@
 package foo;
 import java.util.Random;
 
-public class PrecoCombustivel {
+public class PrecoCombustivelWS {
   public double obterPrecoCombustivel(String siglaCombustivel) {
     Random random = new Random();
     double minValue = 1;

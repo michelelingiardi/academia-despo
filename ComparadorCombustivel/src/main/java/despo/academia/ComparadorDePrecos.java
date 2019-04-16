@@ -1,12 +1,12 @@
 package despo.academia;
 
-import foo.PrecoCombustivel;
+import foo.PrecoCombustivelWS;
 
-public class Combustivel {
+public class ComparadorDePrecos {
   public static final String ETANOL = "E";
-  private PrecoCombustivel precoCombustivel;
+  private PrecoCombustivelWS precoCombustivel;
 
-  public Combustivel(PrecoCombustivel precoCombustivel) {
+  public ComparadorDePrecos(PrecoCombustivelWS precoCombustivel) {
     this.precoCombustivel = precoCombustivel;
   }
 

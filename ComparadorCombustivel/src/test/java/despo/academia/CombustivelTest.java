@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import despo.academia.mock.PrecoCombustivelExceptionMock;
 import despo.academia.mock.PrecoCombustivelMock;
 import foo.PrecoCombustivelWS;
 
@@ -48,7 +49,8 @@ class CombustivelTest {
   @Test
   @DisplayName("Falha na integração")
   void consultaCombustivelIndisponivelTest() {
-    assertThrows(ConsultaCombustivelIndisponivelException, criarComparadorDePrecosMock().comparar())
+    assertThrows(ConsultaCombustivelIndisponivelException.class, 
+        () -> { criarComparadorDePrecosMock().comparar(); } );
   }
   
   private ComparadorDePrecos criarComparadorDePrecos() {

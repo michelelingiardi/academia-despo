@@ -38,6 +38,13 @@ class CombustivelTest {
     assertTrue(mensagem.equals(ComparadorDePrecos.MSG_ETANOL));
   }
   
+  @Test
+  @DisplayName("Comparar preços com mock - vantagem Gasolina")
+  void mensagemCompreGasolina() {
+    String mensagem = criarComparadorDePrecosMock(70.01,100).comparar();
+    assertTrue(mensagem.equals("Compre gasolina!"));
+  }
+  
   private ComparadorDePrecos criarComparadorDePrecos() {
     return new ComparadorDePrecos(new PrecoCombustivelWS());
   }

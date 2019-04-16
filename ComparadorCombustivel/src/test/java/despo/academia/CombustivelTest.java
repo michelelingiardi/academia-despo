@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import despo.academia.mock.PrecoCombustivelMock;
 import foo.PrecoCombustivelWS;
 
 class CombustivelTest {
@@ -28,6 +29,15 @@ class CombustivelTest {
     String mensagem = criarComparadorDePrecos().comparar();
     assertTrue(mensagem.equals(ComparadorDePrecos.MSG_ETANOL)
         || mensagem.equals(ComparadorDePrecos.MSG_GASOLINA));
+  }
+  
+  @Test
+  @DisplayName("Comparar preços com mock - vantagem Etanol")
+  void mensagemCompreEtanol() {
+    ComparadorDePrecos comparadorDePrecos 
+      = new ComparadorDePrecos(new PrecoCombustivelMock(70, 100));
+    String mensagem = comparadorDePrecos.comparar();
+    assertTrue(mensagem.equals(ComparadorDePrecos.MSG_ETANOL));
   }
   
   private ComparadorDePrecos criarComparadorDePrecos() {

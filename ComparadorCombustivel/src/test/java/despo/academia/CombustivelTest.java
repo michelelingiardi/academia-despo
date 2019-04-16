@@ -22,6 +22,14 @@ class CombustivelTest {
     assertTrue(precoGasolina >= 1 && precoGasolina <= 10);
   }
   
+  @Test
+  @DisplayName("Comparar preços")
+  void compararPrecosTest() {
+    String mensagem = criarComparadorDePrecos().comparar();
+    assertTrue(mensagem.equals(ComparadorDePrecos.MSG_ETANOL)
+        || mensagem.equals(ComparadorDePrecos.MSG_GASOLINA));
+  }
+  
   private ComparadorDePrecos criarComparadorDePrecos() {
     return new ComparadorDePrecos(new PrecoCombustivelWS());
   }

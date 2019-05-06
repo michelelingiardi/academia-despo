@@ -26,15 +26,17 @@ public class Biblioteca {
 			throws UsuarioJaRegistradoException, UsuarioComNomeVazioException,
 			UsuarioInexistenteException {
 		if (nome != null) {
-			if (!nome.isEmpty()) {
+			if (nome.isEmpty()) 
+			    throw new UsuarioComNomeVazioException("--->N‹o pode registrar usuario com nome vazio!");
+			else {
 				Usuario usuario = new Usuario(nome);
 				if (!_usuarios.contains(usuario)) {
 					_usuarios.add(usuario);
 				} else
 					throw new UsuarioJaRegistradoException("--->J‡ existe usu‡rio com o nome \""
 							+ nome + "\"! Use outro nome!");
-			} else
-				throw new UsuarioComNomeVazioException("--->N‹o pode registrar usuario com nome vazio!");
+			}
+				
 		} else
 			throw new UsuarioInexistenteException("--->N‹o pode registrar usuario inexistente!");
 	}

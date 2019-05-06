@@ -23,13 +23,7 @@ public class Biblioteca {
 	}
 
 	public void registraUsuario(String nome)
-			throws UsuarioJaRegistradoException, UsuarioComNomeVazioException,
-			UsuarioInexistenteException {
-	    if (nome == null)
-	        throw new UsuarioInexistenteException("--->N‹o pode registrar usuario inexistente!");
-		if (nome.isEmpty()) 
-		    throw new UsuarioComNomeVazioException("--->N‹o pode registrar usuario com nome vazio!");
-		
+			throws UsuarioException {
 		Usuario usuario = new Usuario(nome);
 		if (_usuarios.contains(usuario))
 		    throw new UsuarioJaRegistradoException("--->J‡ existe usu‡rio com o nome \""

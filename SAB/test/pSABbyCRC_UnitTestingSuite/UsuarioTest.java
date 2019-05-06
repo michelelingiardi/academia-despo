@@ -8,14 +8,14 @@ import org.junit.Test;
 public class UsuarioTest {
 
 	@Before
-	public void SetUp() {
+	public void SetUp() throws UsuarioException {
 		usuario = new Usuario("Jose");
 	}
 
 	@Test
 	public void whenSituacaoInicialEntaoLivroDisponivelParaEmprestimo() {
-		// T1: Testa condições de início!
-		// Assumo que Biblioteca não deixa criar usuario com
+		// T1: Testa condiÔøΩ‚Ä∫es de in‚Äôcio!
+		// Assumo que Biblioteca n‚Äπo deixa criar usuario com
 		// com nomes vazios ou nulos!
 		assertEquals(0, (usuario.getLivros()).size());
 		assertEquals("Jose", usuario.getNome());
@@ -23,7 +23,7 @@ public class UsuarioTest {
 
 	@Test
 	public void whenAnexaLivroNaoNuloAListaDeLivrosEmprestadosPeloUsuarioEntaoIncrementaHumDeListaDeLivrosEmprestados() {
-		// T2: Anexa livro não nulo
+		// T2: Anexa livro n‚Äπo nulo
 		Livro livro = new Livro("Java Design Patterns", "Pankaj Kumar");
 		int tam = (usuario.getLivros()).size();
 		usuario.anexaLivroAoUsuario(livro);
@@ -45,7 +45,7 @@ public class UsuarioTest {
 
 	@Test
 	public void whenDesanexaLivroNaoNuloDeLivrosEmprestadosPeloUsuarioDecrementaHumDeListaDeLivrosEmprestados() {
-		// T4: Desanexa livro não nulo
+		// T4: Desanexa livro n‚Äπo nulo
 		Livro livro = new Livro("Java Design Patterns", "Pankaj Kumar");
 		usuario.anexaLivroAoUsuario(livro);
 		Livro livro1 = new Livro("Clojure", "Sally Fields");

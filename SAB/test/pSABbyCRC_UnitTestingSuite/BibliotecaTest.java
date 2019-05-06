@@ -8,8 +8,7 @@ import org.junit.Test;
 public class BibliotecaTest {
 	@Before
 	public void SetUp() throws AdicionarLivroInexistenteException,
-			UsuarioJaRegistradoException, UsuarioComNomeVazioException,
-			UsuarioInexistenteException, BuscaUsuarioComNomeVazioException,
+			UsuarioException, BuscaUsuarioComNomeVazioException,
 			BuscaUsuarioComNomeNuloException {
 		biblioteca = new Biblioteca("ITA");
 		livro1 = new Livro("Java Design Patterns", "Pankaj Kumar");

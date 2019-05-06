@@ -13,8 +13,8 @@ public class LivroTest {
 
 	@Test
 	public void whenSituacaoInicialEntaoLivroDisponivelParaEmprestimo() {
-		// T1: Testa condições de início!
-		// Assumo que Biblioteca não deixa criar livro com
+		// T1: Testa condiÔøΩ‚Ä∫es de in‚Äôcio!
+		// Assumo que Biblioteca n‚Äπo deixa criar livro com
 		// titulo e/ou autor com nomes vazios ou nulos!
 		assertEquals(null, livro.getUsuario());
 		assertEquals("Java Design Patterns", livro.getTitulo());
@@ -22,8 +22,8 @@ public class LivroTest {
 	}
 
 	@Test
-	public void whenAnexaUsuarioNaoNuloAoLivroEntaoLivroFicaIndisponivelParaEmprestimo() {
-		// T2: Anexa usuario não nulo
+	public void whenAnexaUsuarioNaoNuloAoLivroEntaoLivroFicaIndisponivelParaEmprestimo() throws UsuarioException {
+		// T2: Anexa usuario n‚Äπo nulo
 		Usuario usuario1 = new Usuario("Jose");
 		livro.anexaUsuarioAoLivro(usuario1);
 		assertEquals(usuario1, livro.getUsuario());
@@ -38,9 +38,9 @@ public class LivroTest {
 	}
 
 	@Test
-	public void whenDesanexaUsuarioNaoNuloDoLivroEntaoLivroFicaDisponivelParaEmprestimo() {
-		// T4: Desanexa usuario não nulo
-		Usuario usuario1 = new Usuario("Jose");
+	public void whenDesanexaUsuarioNaoNuloDoLivroEntaoLivroFicaDisponivelParaEmprestimo() throws UsuarioException {
+		// T4: Desanexa usuario n‚Äπo nulo
+		Usuario usuario1 = criarUsuario("Jose");
 		livro.anexaUsuarioAoLivro(usuario1);
 		livro.desanexaUsuarioDoLivro();
 		assertEquals(null, livro.getUsuario());
@@ -55,5 +55,8 @@ public class LivroTest {
 		assertEquals(null, livro.getUsuario());
 	}
 
+	private Usuario criarUsuario(String nome) throws UsuarioException {
+	    return new Usuario(nome);
+	}
 	private Livro livro;
 }

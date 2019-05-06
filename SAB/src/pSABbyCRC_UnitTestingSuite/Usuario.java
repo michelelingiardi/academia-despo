@@ -4,12 +4,20 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Usuario implements Comparable<Object> {
-	public Usuario(String nome) {
+	public Usuario(String nome) throws UsuarioException {
+	    validarNome(nome);
 		setNome(nome);
 		_livros = new LinkedList<Livro>();
 	}
 
-	public void anexaLivroAoUsuario(Livro livro) {
+	private void validarNome(String nome) throws UsuarioException {
+	    if (nome == null)
+            throw new UsuarioInexistenteException("--->N‹o pode registrar usuario inexistente!");
+        if (nome.isEmpty()) 
+            throw new UsuarioComNomeVazioException("--->N‹o pode registrar usuario com nome vazio!");
+    }
+
+    public void anexaLivroAoUsuario(Livro livro) {
 		if (livro != null)
 			_livros.add(livro);
 	}

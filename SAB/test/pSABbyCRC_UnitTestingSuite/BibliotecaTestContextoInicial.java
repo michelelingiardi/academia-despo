@@ -55,8 +55,7 @@ public class BibliotecaTestContextoInicial {
 
 	@Test
 	public void whenAdicionoUmUsuarioEntaoIncrementaTamListaUsuariosDeUm()
-			throws UsuarioJaRegistradoException, UsuarioComNomeVazioException,
-			UsuarioInexistenteException { // T7--T9
+			throws UsuarioException { // T7--T9
 		// T7: Cria 1 usu‡rio novo
 		int tam = biblioteca.sizeUsuarios();
 		biblioteca.registraUsuario("Jose");
@@ -73,8 +72,7 @@ public class BibliotecaTestContextoInicial {
 
 	@Test(expected = UsuarioJaRegistradoException.class)
 	public void whenAdicionoUsuarioJaExistenteEntaoUsuarioJaRegistradoExceptionEhLancada()
-			throws UsuarioJaRegistradoException, UsuarioComNomeVazioException,
-			UsuarioInexistenteException {
+			throws UsuarioException {
 		// T10
 		biblioteca.registraUsuario("Joaquim");
 		biblioteca.registraUsuario("Joaquim");
@@ -82,16 +80,14 @@ public class BibliotecaTestContextoInicial {
 
 	@Test(expected = UsuarioComNomeVazioException.class)
 	public void whenAdicionoUsuarioComNomeVazioEntaoUsuarioComNomeVazioExceptionEhLancada()
-			throws UsuarioJaRegistradoException, UsuarioComNomeVazioException,
-			UsuarioInexistenteException {
+			throws UsuarioException {
 		// T11
 		biblioteca.registraUsuario("");
 	}
 
 	@Test(expected = UsuarioInexistenteException.class)
 	public void whenAdicionoUsuarioInexistenteEntaoUsuarioInexistenteExceptionEhLancada()
-			throws UsuarioJaRegistradoException, UsuarioComNomeVazioException,
-			UsuarioInexistenteException {
+			throws UsuarioException {
 		// T12
 		biblioteca.registraUsuario(null);
 	}

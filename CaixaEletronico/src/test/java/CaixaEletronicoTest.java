@@ -34,7 +34,6 @@ public class CaixaEletronicoTest {
 	public void sacarComSucesso() {
 		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);		
 		String mensagemRecebida = c.sacar();
-		
 		assertEquals("Retire seu dinheiro", mensagemRecebida);
 	}
 	

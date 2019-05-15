@@ -7,7 +7,7 @@ import despo.academia.CaixaEletronico;
 public class CaixaEletronicoTest {
 
 	@Test
-	public void logarCaixaEletronico() {
+	public void logarComSucesso() {
 		CaixaEletronico c = new CaixaEletronico();
 		String mensagemRecebida = c.logar();
 		assertEquals("Usuário Autenticado", mensagemRecebida);

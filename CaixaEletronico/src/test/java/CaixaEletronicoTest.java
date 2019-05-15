@@ -13,7 +13,6 @@ public class CaixaEletronicoTest {
 		hardwareMock = new HardwareMock();
 	}
 	
-	
 	@Test
 	public void logarComSucesso() {
 		CaixaEletronico c = new CaixaEletronico(hardwareMock);
@@ -23,9 +22,10 @@ public class CaixaEletronicoTest {
 
 	@Test
 	public void logarComErro() {
-		hardwareMock.testarUsuarioInvalido();
+		hardwareMock.usuarioInvalido = true;
 		CaixaEletronico c = new CaixaEletronico(hardwareMock);
 		String mensagemRecebida = c.logar();		
 		assertEquals("Não foi possível autenticar o usuário", mensagemRecebida);
 	}
+	
 }

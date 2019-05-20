@@ -17,23 +17,29 @@ public class CaixaEletronicoTest {
 	
 	@Test
 	public void logarComSucesso() {
-		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);
+		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);		
 		String mensagemRecebida = c.logar();
-		assertEquals("Usuário Autenticado", mensagemRecebida);
+		assertTrue(hardwareMock.chamouPegarNumeroDaContaCartao);
+		assertEquals("Usuario Autenticado", mensagemRecebida);
 	}
 
 	@Test
 	public void logarComErro() {
 		hardwareMock.usuarioInvalido = true;
 		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);
-		String mensagemRecebida = c.logar();		
-		assertEquals("Não foi possível autenticar o usuário", mensagemRecebida);
+		String mensagemRecebida = c.logar();
+		assertTrue(hardwareMock.chamouPegarNumeroDaContaCartao);
+		assertEquals("Nao foi possivel autenticar o usuario", mensagemRecebida);
 	}
 	
 	@Test
 	public void sacarComSucesso() {
-		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);		
-		String mensagemRecebida = c.sacar();
+		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);
+		servicoRemotoMock.saldo = 100;
+		assertEquals(100, servicoRemotoMock.recuperaSaldo());
+		String mensagemRecebida = c.sacar(100);
+		assertEquals(0, servicoRemotoMock.recuperaSaldo());
+		assertTrue(hardwareMock.chamouEntregarDinheiro);
 		assertEquals("Retire seu dinheiro", mensagemRecebida);
 	}
 	

@@ -13,15 +13,15 @@ public class CaixaEletronico {
 	public String logar() {
 		try {
 			numeroDaConta = hardware.pegarNumeroDaContaCartao();
-			return "Usuário Autenticado";
+			return "Usuario Autenticado";
 		} catch(Exception e) {
-			return "Não foi possível autenticar o usuário";
+			return "Nao foi possivel autenticar o usuario";
 		}
 	}
 
-	public String sacar() {
+	public String sacar(int i) {
 		ContaCorrente conta = servicoRemoto.recuperarConta(numeroDaConta);
-		
+		return "";
 	}
 
 }

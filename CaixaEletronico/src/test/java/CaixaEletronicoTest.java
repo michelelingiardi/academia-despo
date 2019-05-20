@@ -36,10 +36,12 @@ public class CaixaEletronicoTest {
 	public void sacarComSucesso() {
 		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);
 		servicoRemotoMock.saldo = 100;
+		servicoRemotoMock.recuperarConta("1234");
 		assertEquals(100, servicoRemotoMock.recuperaSaldo());
-		String mensagemRecebida = c.sacar(100);
-		assertEquals(0, servicoRemotoMock.recuperaSaldo());
+		String mensagemRecebida = c.sacar(100);		
 		assertTrue(hardwareMock.chamouEntregarDinheiro);
+		assertTrue(servicoRemotoMock.chamouPersistirConta);
+		assertEquals(0, servicoRemotoMock.recuperaSaldo());
 		assertEquals("Retire seu dinheiro", mensagemRecebida);
 	}
 	

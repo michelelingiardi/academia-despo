@@ -3,21 +3,24 @@ import despo.academia.ServicoRemoto;
 
 public class ServicoRemotoMock implements ServicoRemoto {
 
-	public int saldo;
+	int saldo;
+	ContaCorrente contaCorrente;
+	boolean chamouPersistirConta;
+	
 
+	@Override
 	public ContaCorrente recuperarConta(String numeroDaConta) {
-		// TODO Auto-generated method stub
-		return null;
+		this.contaCorrente = new ContaCorrente(this.saldo, "1234");
+		return this.contaCorrente;
 	}
 
+	@Override
 	public void persistirConta(ContaCorrente contaCorrente) {
-		// TODO Auto-generated method stub
+		this.chamouPersistirConta = true;		
 		
 	}
 
-	public Object recuperaSaldo() {
-		// TODO Auto-generated method stub
-		return null;
+	public int recuperaSaldo() {
+		return contaCorrente.getSaldo();
 	}
-
 }

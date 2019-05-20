@@ -19,9 +19,12 @@ public class CaixaEletronico {
 		}
 	}
 
-	public String sacar(int i) {
-		ContaCorrente conta = servicoRemoto.recuperarConta(numeroDaConta);
-		return "";
+	public String sacar(int valorSaque) {
+		ContaCorrente contaCorrente = servicoRemoto.recuperarConta(numeroDaConta);
+		contaCorrente.sacar(valorSaque);		
+		hardware.entregarDinheiro();
+		servicoRemoto.persistirConta(contaCorrente);
+		return "Retire seu dinheiro";
 	}
 
 }

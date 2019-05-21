@@ -31,9 +31,12 @@ public class CaixaEletronico {
 		return "Retire seu dinheiro";
 	}
 
-	public String depositar(int i) {
-		// TODO Auto-generated method stub
-		return null;
+	public String depositar(int valorDeposito) {
+		ContaCorrente contaCorrente = servicoRemoto.recuperarConta(numeroDaConta);
+		hardware.lerEnvelope();
+		contaCorrente.depositar(valorDeposito);
+		servicoRemoto.persistirConta(contaCorrente);		
+		return "Depósito recebido com sucesso";
 	}
 
 }

@@ -24,4 +24,8 @@ public class ContaCorrente {
 		this.saldo = this.saldo - valorSaque;
 	}
 
+	public void depositar(int valorDeposito) {
+		this.saldo += valorDeposito;		
+	}
+
 }

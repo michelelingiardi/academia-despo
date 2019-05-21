@@ -1,12 +1,11 @@
 import despo.academia.Hardware;
 
 public class HardwareMock implements Hardware {
+	String numeroDaConta = "";
 	boolean usuarioInvalido = false;
 	boolean chamouPegarNumeroDaContaCartao = false;
-	public boolean chamouEntregarDinheiro = false; 
-	String numeroDaConta = "";
-	public boolean chamouLerEnvelope;
-
+	boolean chamouEntregarDinheiro = false;
+	boolean chamouLerEnvelope = false;
 
 	@Override
 	public String pegarNumeroDaContaCartao() {
@@ -15,10 +14,13 @@ public class HardwareMock implements Hardware {
 		return numeroDaConta;
 	}
 
-
 	@Override
 	public void entregarDinheiro() {
 		chamouEntregarDinheiro = true;
 	}
-	
+
+	@Override
+	public void lerEnvelope() {
+		chamouLerEnvelope = true;
+	}
 }

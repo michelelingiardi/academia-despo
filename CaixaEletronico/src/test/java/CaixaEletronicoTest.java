@@ -97,8 +97,16 @@ public class CaixaEletronicoTest {
 		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);
 		servicoRemotoMock.criarContaCorrente("1234", 100);
 		hardwareMock.falhaNoHardware = true;
-		assertThrows(FalhaFuncionamentoHardwareException.class, () -> c.depositar(100));		
+		assertThrows(FalhaFuncionamentoHardwareException.class, () -> c.depositar(100));	
 		assertTrue(hardwareMock.chamouLerEnvelope);
 		assertFalse(servicoRemotoMock.chamouPersistirConta);		
 	}	
+	
+	@Test
+	public void falhaDeHardwareAoLerCartao() {
+		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);
+		servicoRemotoMock.criarContaCorrente("1234", 100);
+		hardwareMock.falhaNoHardware = true;
+		assertThrows(FalhaFuncionamentoHardwareException.class, () -> c.saldo());
+	}
 }

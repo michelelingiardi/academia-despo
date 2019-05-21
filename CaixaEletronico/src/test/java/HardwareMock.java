@@ -5,6 +5,7 @@ public class HardwareMock implements Hardware {
 	boolean chamouPegarNumeroDaContaCartao = false;
 	public boolean chamouEntregarDinheiro = false; 
 	String numeroDaConta = "";
+	public boolean chamouLerEnvelope;
 
 
 	@Override

@@ -31,4 +31,9 @@ public class CaixaEletronico {
 		return "Retire seu dinheiro";
 	}
 
+	public String depositar(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

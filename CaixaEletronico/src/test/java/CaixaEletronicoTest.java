@@ -45,4 +45,16 @@ public class CaixaEletronicoTest {
 		assertEquals("Retire seu dinheiro", mensagemRecebida);
 	}
 	
+	@Test
+	public void sacarSaldoInsuficiente() {
+		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);
+		servicoRemotoMock.saldo = 100;
+		servicoRemotoMock.recuperarConta("1234");
+		assertEquals(100, servicoRemotoMock.recuperaSaldo());
+		String mensagemRecebida = c.sacar(101);
+		assertFalse(hardwareMock.chamouEntregarDinheiro);
+		assertFalse(servicoRemotoMock.chamouPersistirConta);
+		assertEquals(100, servicoRemotoMock.recuperaSaldo());
+		assertEquals("Saldo insuficiente", mensagemRecebida);
+	}
 }

@@ -37,7 +37,7 @@ public class CaixaEletronico {
 		return "Retire seu dinheiro";
 	}
 
-	public String depositar(int valorDeposito) {
+	public String depositar(int valorDeposito) throws FalhaFuncionamentoHardwareException {
 		ContaCorrente contaCorrente = servicoRemoto.recuperarConta(numeroDaConta);
 		hardware.lerEnvelope();
 		contaCorrente.depositar(valorDeposito);

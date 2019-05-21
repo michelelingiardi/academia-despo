@@ -61,7 +61,7 @@ public class CaixaEletronicoTest {
 	}
 	
 	@Test
-	public void depositar() {
+	public void depositar() throws FalhaFuncionamentoHardwareException {
 		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);
 		servicoRemotoMock.criarContaCorrente("1234", 100);
 		assertEquals(100, servicoRemotoMock.recuperaSaldo());

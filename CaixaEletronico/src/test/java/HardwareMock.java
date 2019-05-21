@@ -25,7 +25,8 @@ public class HardwareMock implements Hardware {
 	}
 
 	@Override
-	public void lerEnvelope() {
+	public void lerEnvelope() throws FalhaFuncionamentoHardwareException {
 		chamouLerEnvelope = true;
+		if (falhaNoHardware) throw new FalhaFuncionamentoHardwareException();
 	}
 }

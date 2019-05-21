@@ -14,11 +14,11 @@ public class CaixaEletronico {
 		this.servicoRemoto = servicoRemoto;
 	}
 
-	public String logar() {
+	public String logar() throws FalhaFuncionamentoHardwareException {
 		try {
 			numeroDaConta = hardware.pegarNumeroDaContaCartao();
 			return "Usuario Autenticado";
-		} catch(Exception e) {
+		} catch(UsuarioInvalidoException e) {
 			return "Nao foi possivel autenticar o usuario";
 		}
 	}

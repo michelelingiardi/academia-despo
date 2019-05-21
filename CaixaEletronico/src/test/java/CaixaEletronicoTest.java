@@ -18,7 +18,7 @@ public class CaixaEletronicoTest {
 	}
 	
 	@Test
-	public void logarComSucesso() {
+	public void logarComSucesso() throws FalhaFuncionamentoHardwareException {
 		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);		
 		String mensagemRecebida = c.logar();
 		assertTrue(hardwareMock.chamouPegarNumeroDaContaCartao);
@@ -26,7 +26,7 @@ public class CaixaEletronicoTest {
 	}
 
 	@Test
-	public void logarComErro() {
+	public void logarComErro() throws FalhaFuncionamentoHardwareException {
 		hardwareMock.usuarioInvalido = true;
 		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);
 		String mensagemRecebida = c.logar();

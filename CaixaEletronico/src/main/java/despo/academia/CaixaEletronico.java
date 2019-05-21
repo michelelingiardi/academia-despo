@@ -39,4 +39,8 @@ public class CaixaEletronico {
 		return "Depósito recebido com sucesso";
 	}
 
+	public String saldo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -71,4 +71,12 @@ public class CaixaEletronicoTest {
 		assertEquals("Depósito recebido com sucesso", mensagemRecebida);
 	}
 	
+	@Test
+	public void saldo() {
+		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);
+		servicoRemotoMock.saldo = 100;
+		servicoRemotoMock.recuperarConta("1234");
+		String mensagemRecebida = c.saldo();
+		assertEquals("O saldo é R$100,00", mensagemRecebida);
+	}
 }

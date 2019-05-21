@@ -35,10 +35,10 @@ public class CaixaEletronicoTest {
 	@Test
 	public void sacarComSucesso() {
 		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);
-		servicoRemotoMock.saldo = 100;
-		servicoRemotoMock.recuperarConta("1234");
+		servicoRemotoMock.criarContaCorrente("1234", 100);
 		assertEquals(100, servicoRemotoMock.recuperaSaldo());
 		String mensagemRecebida = c.sacar(100);		
+		assertTrue(servicoRemotoMock.chamouRecuperarConta);
 		assertTrue(hardwareMock.chamouEntregarDinheiro);
 		assertTrue(servicoRemotoMock.chamouPersistirConta);
 		assertEquals(0, servicoRemotoMock.recuperaSaldo());
@@ -48,10 +48,10 @@ public class CaixaEletronicoTest {
 	@Test
 	public void sacarSaldoInsuficiente() {
 		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);
-		servicoRemotoMock.saldo = 100;
-		servicoRemotoMock.recuperarConta("1234");
+		servicoRemotoMock.criarContaCorrente("1234", 100);
 		assertEquals(100, servicoRemotoMock.recuperaSaldo());
 		String mensagemRecebida = c.sacar(101);
+		assertTrue(servicoRemotoMock.chamouRecuperarConta);
 		assertFalse(hardwareMock.chamouEntregarDinheiro);
 		assertFalse(servicoRemotoMock.chamouPersistirConta);
 		assertEquals(100, servicoRemotoMock.recuperaSaldo());
@@ -61,10 +61,10 @@ public class CaixaEletronicoTest {
 	@Test
 	public void depositar() {
 		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);
-		servicoRemotoMock.saldo = 100;
-		servicoRemotoMock.recuperarConta("1234");
+		servicoRemotoMock.criarContaCorrente("1234", 100);
 		assertEquals(100, servicoRemotoMock.recuperaSaldo());
 		String mensagemRecebida = c.depositar(1);
+		assertTrue(servicoRemotoMock.chamouRecuperarConta);
 		assertTrue(hardwareMock.chamouLerEnvelope);		
 		assertTrue(servicoRemotoMock.chamouPersistirConta);
 		assertEquals(101, servicoRemotoMock.recuperaSaldo());
@@ -74,8 +74,7 @@ public class CaixaEletronicoTest {
 	@Test
 	public void saldo() {
 		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);
-		servicoRemotoMock.saldo = 100;
-		servicoRemotoMock.recuperarConta("1234");
+		servicoRemotoMock.criarContaCorrente("1234", 100);
 		String mensagemRecebida = c.saldo();
 		assertEquals("O saldo é R$100,00", mensagemRecebida);
 	}

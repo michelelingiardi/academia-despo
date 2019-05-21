@@ -4,7 +4,7 @@ public class ContaCorrente {
 	private int saldo;
 	private String numeroDaConta;
 	
-	public ContaCorrente(int saldo, String numeroDaConta) {
+	public ContaCorrente(String numeroDaConta, int saldo) {
 		this.saldo = saldo;
 		this.numeroDaConta = numeroDaConta;
 	}

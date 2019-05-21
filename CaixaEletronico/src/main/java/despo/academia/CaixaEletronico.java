@@ -23,14 +23,16 @@ public class CaixaEletronico {
 		}
 	}
 
-	public String sacar(int valorSaque) {
+	public String sacar(int valorSaque) throws FalhaFuncionamentoHardwareException {
 		ContaCorrente contaCorrente = servicoRemoto.recuperarConta(numeroDaConta);
 		try{
 			contaCorrente.sacar(valorSaque);		
 		} catch(Exception e) {
 			return "Saldo insuficiente";
 		}
+		
 		hardware.entregarDinheiro();
+		
 		servicoRemoto.persistirConta(contaCorrente);
 		return "Retire seu dinheiro";
 	}

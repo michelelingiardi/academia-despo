@@ -1,4 +1,6 @@
+import despo.academia.FalhaFuncionamentoHardwareException;
 import despo.academia.Hardware;
+import despo.academia.UsuarioInvalidoException;
 
 public class HardwareMock implements Hardware {
 	String numeroDaConta = "";
@@ -9,15 +11,17 @@ public class HardwareMock implements Hardware {
 	boolean falhaNoHardware = false;
 
 	@Override
-	public String pegarNumeroDaContaCartao() {
+	public String pegarNumeroDaContaCartao() throws FalhaFuncionamentoHardwareException, UsuarioInvalidoException {
 		chamouPegarNumeroDaContaCartao = true;
-		if (usuarioInvalido) throw new RuntimeException();
+		if (falhaNoHardware) throw new FalhaFuncionamentoHardwareException();
+		if (usuarioInvalido) throw new UsuarioInvalidoException();
 		return numeroDaConta;
 	}
 
 	@Override
-	public void entregarDinheiro() {
+	public void entregarDinheiro() throws FalhaFuncionamentoHardwareException {		
 		chamouEntregarDinheiro = true;
+		if (falhaNoHardware) throw new FalhaFuncionamentoHardwareException();
 	}
 
 	@Override

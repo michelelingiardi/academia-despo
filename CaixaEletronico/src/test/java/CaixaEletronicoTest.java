@@ -1,9 +1,11 @@
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import despo.academia.CaixaEletronico;
+import despo.academia.FalhaFuncionamentoHardwareException;
 
 public class CaixaEletronicoTest {
 	HardwareMock hardwareMock;
@@ -33,7 +35,7 @@ public class CaixaEletronicoTest {
 	}
 	
 	@Test
-	public void sacarComSucesso() {
+	public void sacarComSucesso() throws FalhaFuncionamentoHardwareException {
 		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);
 		servicoRemotoMock.criarContaCorrente("1234", 100);
 		assertEquals(100, servicoRemotoMock.recuperaSaldo());
@@ -46,7 +48,7 @@ public class CaixaEletronicoTest {
 	}
 	
 	@Test
-	public void sacarSaldoInsuficiente() {
+	public void sacarSaldoInsuficiente() throws FalhaFuncionamentoHardwareException {
 		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);
 		servicoRemotoMock.criarContaCorrente("1234", 100);
 		assertEquals(100, servicoRemotoMock.recuperaSaldo());
@@ -85,9 +87,8 @@ public class CaixaEletronicoTest {
 		servicoRemotoMock.criarContaCorrente("1234", 100);
 		hardwareMock.falhaNoHardware = true;
 		assertEquals(100, servicoRemotoMock.recuperaSaldo());
-		String mensagemRecebida = c.sacar(100);		
+		assertThrows(FalhaFuncionamentoHardwareException.class, () -> c.sacar(100));		
 		assertTrue(hardwareMock.chamouEntregarDinheiro);
 		assertFalse(servicoRemotoMock.chamouPersistirConta);		
-		assertEquals("Falha de funcionamento do hardware", mensagemRecebida);
 	}	
 }

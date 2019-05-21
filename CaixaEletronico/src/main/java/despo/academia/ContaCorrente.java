@@ -17,7 +17,10 @@ public class ContaCorrente {
 		return this.numeroDaConta;
 	}
 	
-	public void sacar(int valorSaque) {
+	public void sacar(int valorSaque) throws Exception {
+		if (valorSaque > this.saldo) {
+			throw new Exception("Saldo insuficiente");
+		}
 		this.saldo = this.saldo - valorSaque;
 	}
 

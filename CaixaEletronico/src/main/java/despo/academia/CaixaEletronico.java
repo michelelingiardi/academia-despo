@@ -21,7 +21,11 @@ public class CaixaEletronico {
 
 	public String sacar(int valorSaque) {
 		ContaCorrente contaCorrente = servicoRemoto.recuperarConta(numeroDaConta);
-		contaCorrente.sacar(valorSaque);		
+		try{
+			contaCorrente.sacar(valorSaque);		
+		} catch(Exception e) {
+			return "Saldo insuficiente";
+		}
 		hardware.entregarDinheiro();
 		servicoRemoto.persistirConta(contaCorrente);
 		return "Retire seu dinheiro";

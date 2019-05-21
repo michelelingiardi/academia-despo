@@ -1,5 +1,9 @@
 package despo.academia;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
 public class CaixaEletronico {
 	private Hardware hardware;
 	private ServicoRemoto servicoRemoto;
@@ -40,7 +44,8 @@ public class CaixaEletronico {
 	}
 
 	public String saldo() {
-		// TODO Auto-generated method stub
-		return null;
+		ContaCorrente contaCorrente = servicoRemoto.recuperarConta(numeroDaConta);		
+		DecimalFormat formatReal = new DecimalFormat("##,###,###,##0.00", new DecimalFormatSymbols(new Locale ("pt", "BR")));
+		return "O saldo é R$" + formatReal.format(contaCorrente.getSaldo());		
 	}
 }

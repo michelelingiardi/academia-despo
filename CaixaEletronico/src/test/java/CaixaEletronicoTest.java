@@ -78,4 +78,16 @@ public class CaixaEletronicoTest {
 		String mensagemRecebida = c.saldo();
 		assertEquals("O saldo é R$100,00", mensagemRecebida);
 	}
+	
+	@Test
+	public void falhaDeHardware() {		
+		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);
+		servicoRemotoMock.criarContaCorrente("1234", 100);
+		hardwareMock.falhaNoHardware = true;
+		assertEquals(100, servicoRemotoMock.recuperaSaldo());
+		String mensagemRecebida = c.sacar(100);		
+		assertTrue(hardwareMock.chamouEntregarDinheiro);
+		assertFalse(servicoRemotoMock.chamouPersistirConta);		
+		assertEquals("Falha de funcionamento do hardware", mensagemRecebida);
+	}	
 }

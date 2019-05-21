@@ -107,6 +107,6 @@ public class CaixaEletronicoTest {
 		CaixaEletronico c = new CaixaEletronico(hardwareMock, servicoRemotoMock);
 		servicoRemotoMock.criarContaCorrente("1234", 100);
 		hardwareMock.falhaNoHardware = true;
-		assertThrows(FalhaFuncionamentoHardwareException.class, () -> c.saldo());
+		assertThrows(FalhaFuncionamentoHardwareException.class, () -> c.logar());
 	}
 }

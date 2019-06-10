@@ -26,4 +26,15 @@ public class PlacarTest {
 		placar.registrarPontoParaUsuario("estrela", "guerra", 5);
 		assertEquals(15, mock.recuperarPontuacaoUsuario("estrela", "guerra"));
 	}
+	
+	@Test
+	public void registrarTiposDePontosDiferentesParaUsuario() {
+		ArmazenamentoMock mock = new ArmazenamentoMock();
+		Placar placar = new Placar(mock);
+		placar.registrarPontoParaUsuario("estrela", "guerra", 7);
+		placar.registrarPontoParaUsuario("moeda", "guerra", 3);
+		assertEquals(7, mock.recuperarPontuacaoUsuario("estrela", "guerra"));
+		assertEquals(3, mock.recuperarPontuacaoUsuario("moeda", "guerra"));
+		
+	}
 }

@@ -1,14 +1,15 @@
 package despo.academia.gamificacao;
 
 public class Placar {
+	
+	Armazenamento armazenamento;
 
 	public Placar(Armazenamento armazenamento) {
-		// TODO Auto-generated constructor stub
+		this.armazenamento = armazenamento;
 	}
 
-	public void registrarPontoParaUsuario(String tipoPonto, String usuario, int i) {
-		// TODO Auto-generated method stub
-		
+	public void registrarPontoParaUsuario(String tipoPonto, String usuario, int pontos) {
+		armazenamento.armazenarPontoUsuario(tipoPonto, usuario, pontos);		
 	}
 
 }

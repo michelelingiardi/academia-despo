@@ -1,28 +1,31 @@
 package despo.academia.gamificacao;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ArmazenamentoMock implements Armazenamento {
-	
-	String tipoPonto;
-	String usuario;
-	int pontos;
+	Map<String, Usuario> usuarios = new HashMap<>();
 
 	public boolean chamouRecuperarPontuacaoUsuario = false;
 	public boolean chamouArmazenarUsuario = false;
 	
-	public int recuperarPontuacaoUsuario(String tipoPonto, String usuario) {
+	@Override
+	public Integer recuperarPontuacaoUsuario(String tipoPonto, String nomeUsuario) {
 		this.chamouRecuperarPontuacaoUsuario = true;
-		if (tipoPonto.equalsIgnoreCase(this.tipoPonto) && usuario.equalsIgnoreCase(this.usuario)) {
-			return this.pontos;
+		Usuario usuario = this.usuarios.get(nomeUsuario);
+		if (null != usuario) {
+			return usuario.getPontuacao(tipoPonto);
 		}
 		return 0;
+			
 	}
 
 	@Override
-	public void armazenarPontuacaoUsuario(String tipoPonto, String usuario, int pontos) {
-		this.tipoPonto = tipoPonto;
-		this.usuario = usuario;
-		this.pontos = pontos;
-		this.chamouArmazenarUsuario = true;		
+	public void armazenarPontuacaoUsuario(String tipoPonto, String nomeUsuario, int pontos) {
+		this.chamouArmazenarUsuario = true;
+		Usuario usuario = usuarios.getOrDefault(nomeUsuario, new Usuario(nomeUsuario));
+		usuario.adicionarPontos(tipoPonto, pontos);		
+		this.usuarios.put(nomeUsuario, usuario);
 	}
 
 }

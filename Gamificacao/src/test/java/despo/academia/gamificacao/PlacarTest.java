@@ -22,6 +22,7 @@ public class PlacarTest {
 		Placar placar = new Placar(mock);
 		placar.registrarPontoParaUsuario("estrela", "guerra", 10);		
 		assertEquals(10, mock.getPontuacaoUsuario("estrela", "guerra"));
+		assertTrue(mock.chamouRecuperarPontuacaoUsuario);
 		placar.registrarPontoParaUsuario("estrela", "guerra", 5);
 		assertEquals(15, mock.getPontuacaoUsuario("estrela", "guerra"));
 	}

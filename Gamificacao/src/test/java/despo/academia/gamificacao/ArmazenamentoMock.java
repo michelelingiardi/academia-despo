@@ -1,15 +1,17 @@
 package despo.academia.gamificacao;
 
 public class ArmazenamentoMock implements Armazenamento {
-
-	public boolean chamouArmazenarUsuario = false;
 	
 	String tipoPonto;
 	String usuario;
 	int pontos;
+
+	public boolean chamouRecuperarPontuacaoUsuario = false;
+	public boolean chamouArmazenarUsuario = false;
 	
 
 	public int getPontuacaoUsuario(String tipoPonto, String usuario) {
+		this.chamouRecuperarPontuacaoUsuario = true;
 		if (tipoPonto.equalsIgnoreCase(this.tipoPonto) && usuario.equalsIgnoreCase(this.usuario)) {
 			return this.pontos;
 		}

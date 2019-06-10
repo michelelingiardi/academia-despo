@@ -1,17 +1,15 @@
 package despo.academia.gamificacao;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Placar {	
 	Armazenamento armazenamento;
 	public Placar(Armazenamento armazenamento) {
 		this.armazenamento = armazenamento;
 	}
 
-	public void registrarPontoParaUsuario(String tipoPonto, String usuario, int pontos) {
-		pontos += armazenamento.recuperarPontuacaoUsuario(tipoPonto, usuario);	
-		armazenamento.armazenarPontuacaoUsuario(tipoPonto, usuario, pontos);		
+	public void registrarPontoParaUsuario(String tipoPonto, String nomeUsuario, int pontos) {
+		Usuario usuario = armazenamento.getUsuario(nomeUsuario);
+		usuario.adicionarPontos(tipoPonto, pontos);
+		armazenamento.armazenarPontuacaoUsuario(usuario);		
 	}
 
 }

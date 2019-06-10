@@ -27,6 +27,11 @@ public class Usuario {
 		Integer pontuacaoAtual = this.getPontuacao(tipoPonto);
 		pontuacao.put(tipoPonto, pontuacaoAtual + pontos);
 	}
+
+	@Override
+	public String toString() {
+		return "Usuario [pontuacao=" + pontuacao + ", nome=" + nome + "]";
+	}
 	
 	
 }

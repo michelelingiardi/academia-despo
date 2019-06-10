@@ -10,6 +10,11 @@ public class ArmazenamentoMock implements Armazenamento {
 	public boolean chamouArmazenarUsuario = false;
 	
 	@Override
+	public Usuario getUsuario(String nomeUsuario) {
+		return this.usuarios.getOrDefault(nomeUsuario, new Usuario(nomeUsuario));
+	}
+	
+	@Override
 	public Integer recuperarPontuacaoUsuario(String tipoPonto, String nomeUsuario) {
 		this.chamouRecuperarPontuacaoUsuario = true;
 		Usuario usuario = this.usuarios.get(nomeUsuario);
@@ -17,15 +22,12 @@ public class ArmazenamentoMock implements Armazenamento {
 			return usuario.getPontuacao(tipoPonto);
 		}
 		return 0;
-			
-	}
+	}	
 
 	@Override
-	public void armazenarPontuacaoUsuario(String tipoPonto, String nomeUsuario, int pontos) {
+	public void armazenarPontuacaoUsuario(Usuario usuario) {
 		this.chamouArmazenarUsuario = true;
-		Usuario usuario = usuarios.getOrDefault(nomeUsuario, new Usuario(nomeUsuario));
-		usuario.adicionarPontos(tipoPonto, pontos);		
-		this.usuarios.put(nomeUsuario, usuario);
+		this.usuarios.put(usuario.getNome(), usuario);
 	}
 
 }

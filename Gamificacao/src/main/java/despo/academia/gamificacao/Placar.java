@@ -7,7 +7,7 @@ public class Placar {
 	}
 
 	public void registrarPontoParaUsuario(String tipoPonto, String nomeUsuario, int pontos) {
-		Usuario usuario = armazenamento.getUsuario(nomeUsuario);
+		Usuario usuario = armazenamento.recuperarUsuario(nomeUsuario);
 		usuario.adicionarPontos(tipoPonto, pontos);
 		armazenamento.armazenarPontuacaoUsuario(usuario);		
 	}

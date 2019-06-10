@@ -6,10 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 public class PlacarTest {
+	
+	ArmazenamentoMock mock;
 
 	@Test
 	public void registrarPontosParaUsuario() {
-		ArmazenamentoMock mock = new ArmazenamentoMock();
+		mock = new ArmazenamentoMock();
 		Placar placar = new Placar(mock);
 		placar.registrarPontoParaUsuario("estrela", "guerra", 10);
 		assertTrue(mock.chamouArmazenarUsuario);
@@ -18,23 +20,24 @@ public class PlacarTest {
 	
 	@Test
 	public void registrarMaisPontosParaUsuario() {
-		ArmazenamentoMock mock = new ArmazenamentoMock();
+		mock = new ArmazenamentoMock();
 		Placar placar = new Placar(mock);
-		placar.registrarPontoParaUsuario("estrela", "guerra", 10);		
-		assertEquals(10, mock.recuperarPontuacaoUsuario("estrela", "guerra"));
-		assertTrue(mock.chamouRecuperarPontuacaoUsuario);
+		placar.registrarPontoParaUsuario("estrela", "guerra", 10);
 		placar.registrarPontoParaUsuario("estrela", "guerra", 5);
-		assertEquals(15, mock.recuperarPontuacaoUsuario("estrela", "guerra"));
+		this.verificarPontuacaoUsuario("estrela", "guerra", 15);		
 	}
 	
 	@Test
 	public void registrarTiposDePontosDiferentesParaUsuario() {
-		ArmazenamentoMock mock = new ArmazenamentoMock();
+		mock = new ArmazenamentoMock();
 		Placar placar = new Placar(mock);
 		placar.registrarPontoParaUsuario("estrela", "guerra", 7);
 		placar.registrarPontoParaUsuario("moeda", "guerra", 3);
-		assertEquals(7, mock.recuperarPontuacaoUsuario("estrela", "guerra"));
-		assertEquals(3, mock.recuperarPontuacaoUsuario("moeda", "guerra"));
-		
+		this.verificarPontuacaoUsuario("estrela", "guerra", 7);
+		this.verificarPontuacaoUsuario("moeda", "guerra", 3);
+	}
+	
+	private void verificarPontuacaoUsuario(String tipoPonto, String nomeUsuario, Integer valorEsperado) {
+		assertEquals(valorEsperado, mock.recuperarPontuacaoUsuario(tipoPonto, nomeUsuario));
 	}
 }

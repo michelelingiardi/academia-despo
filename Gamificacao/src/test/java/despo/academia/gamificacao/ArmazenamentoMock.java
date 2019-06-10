@@ -9,8 +9,7 @@ public class ArmazenamentoMock implements Armazenamento {
 	public boolean chamouRecuperarPontuacaoUsuario = false;
 	public boolean chamouArmazenarUsuario = false;
 	
-
-	public int getPontuacaoUsuario(String tipoPonto, String usuario) {
+	public int recuperarPontuacaoUsuario(String tipoPonto, String usuario) {
 		this.chamouRecuperarPontuacaoUsuario = true;
 		if (tipoPonto.equalsIgnoreCase(this.tipoPonto) && usuario.equalsIgnoreCase(this.usuario)) {
 			return this.pontos;
@@ -19,7 +18,7 @@ public class ArmazenamentoMock implements Armazenamento {
 	}
 
 	@Override
-	public void armazenarPontoUsuario(String tipoPonto, String usuario, int pontos) {
+	public void armazenarPontuacaoUsuario(String tipoPonto, String usuario, int pontos) {
 		this.tipoPonto = tipoPonto;
 		this.usuario = usuario;
 		this.pontos = pontos;

@@ -13,7 +13,7 @@ public class PlacarTest {
 		Placar placar = new Placar(mock);
 		placar.registrarPontoParaUsuario("estrela", "guerra", 10);
 		assertTrue(mock.chamouArmazenarUsuario);
-		assertEquals(10, mock.getPontuacaoUsuario("estrela", "guerra"));
+		assertEquals(10, mock.recuperarPontuacaoUsuario("estrela", "guerra"));
 	}
 	
 	@Test
@@ -21,9 +21,9 @@ public class PlacarTest {
 		ArmazenamentoMock mock = new ArmazenamentoMock();
 		Placar placar = new Placar(mock);
 		placar.registrarPontoParaUsuario("estrela", "guerra", 10);		
-		assertEquals(10, mock.getPontuacaoUsuario("estrela", "guerra"));
+		assertEquals(10, mock.recuperarPontuacaoUsuario("estrela", "guerra"));
 		assertTrue(mock.chamouRecuperarPontuacaoUsuario);
 		placar.registrarPontoParaUsuario("estrela", "guerra", 5);
-		assertEquals(15, mock.getPontuacaoUsuario("estrela", "guerra"));
+		assertEquals(15, mock.recuperarPontuacaoUsuario("estrela", "guerra"));
 	}
 }

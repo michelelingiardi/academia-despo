@@ -1,6 +1,6 @@
 package despo.academia.gamificacao;
 
 public interface Armazenamento {
-	public int getPontuacaoUsuario(String tipoPonto, String usuario);
-	public void armazenarPontoUsuario(String tipoPonto, String usuario, int pontos);	
+	public int recuperarPontuacaoUsuario(String tipoPonto, String usuario);
+	public void armazenarPontuacaoUsuario(String tipoPonto, String usuario, int pontos);	
 }

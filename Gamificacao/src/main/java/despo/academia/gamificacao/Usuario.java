@@ -24,7 +24,7 @@ public class Usuario {
 	public void adicionarPontos(String tipoPonto, Integer quantidadePontos) {
 		if (quantidadePontos > 0) {
 			this.pontuacao.adicionarPontos(tipoPonto, quantidadePontos);
-		}		
+		}
 	}
 
 	@Override

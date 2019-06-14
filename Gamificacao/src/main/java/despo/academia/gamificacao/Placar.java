@@ -1,5 +1,7 @@
 package despo.academia.gamificacao;
 
+import java.util.Map;
+
 public class Placar {	
 	Armazenamento armazenamento;
 	public Placar(Armazenamento armazenamento) {
@@ -15,6 +17,11 @@ public class Placar {
 	public Pontuacao recuperarPontuacaoDoUsuario(String nomeUsuario) {
 		Usuario usuario = armazenamento.recuperarUsuario(nomeUsuario);
 		return usuario.getPontuacao();
+	}
+
+	public Map<String, Integer> recuperarRanking(String estrela) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

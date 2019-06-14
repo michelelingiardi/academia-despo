@@ -3,6 +3,8 @@ package despo.academia.gamificacao;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -60,6 +62,23 @@ public class PlacarTest {
 		Pontuacao pontuacao = placar.recuperarPontuacaoDoUsuario("guerra");
 		
 		assertThat(pontuacao, is(pontuacaoEsperada));
+	}
+	
+	@Test
+	public void recuperarRanking() {
+		placar.registrarPontoParaUsuario(ESTRELA, "fernandes", 19);
+		placar.registrarPontoParaUsuario(ESTRELA, "guerra", 25);
+		placar.registrarPontoParaUsuario(ESTRELA, "rodrigo", 17);
+		placar.registrarPontoParaUsuario(ESTRELA, "toco", 0);
+		placar.registrarPontoParaUsuario(MOEDA, "fernandes", 1);
+		Map<String, Integer> ranking = placar.recuperarRanking(ESTRELA);
+		
+		Map<String, Integer> rankingEsperado = new LinkedHashMap<>();
+		rankingEsperado.put("guerra", 25);
+		rankingEsperado.put("fernandes", 19);
+		rankingEsperado.put("rodrigo", 17);
+		
+		assertThat(ranking, is(rankingEsperado));
 	}
 	
 	private void verificarPontuacaoUsuario(String tipoPonto, String nomeUsuario, Integer valorEsperado) {		

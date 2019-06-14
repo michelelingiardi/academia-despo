@@ -81,6 +81,24 @@ public class PlacarTest {
 		assertThat(ranking, is(rankingEsperado));
 	}
 	
+	@Test
+	public void recuperarRankingSemPontuacaoZerada() {
+		placar.registrarPontoParaUsuario(CURTIDA, "fernandes", 5);
+		placar.registrarPontoParaUsuario(ESTRELA, "fernandes", 19);
+		placar.registrarPontoParaUsuario(ESTRELA, "guerra", 25);
+		placar.registrarPontoParaUsuario(ESTRELA, "rodrigo", 17);		
+		placar.registrarPontoParaUsuario(MOEDA, "fernandes", 200);
+		placar.registrarPontoParaUsuario(MOEDA, "mattos", 201);
+		placar.registrarPontoParaUsuario(MOEDA, "toco", 0);
+		Map<String, Integer> ranking = placar.recuperarRanking(MOEDA);
+		
+		Map<String, Integer> rankingEsperado = new LinkedHashMap<>();
+		rankingEsperado.put("mattos", 201);
+		rankingEsperado.put("fernandes", 200);
+		
+		assertThat(ranking, is(rankingEsperado));
+	}
+	
 	private void verificarPontuacaoUsuario(String tipoPonto, String nomeUsuario, Integer valorEsperado) {		
 		assertEquals(valorEsperado, mock.recuperarPontuacaoUsuario(tipoPonto, nomeUsuario));
 	}

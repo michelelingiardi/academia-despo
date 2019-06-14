@@ -12,8 +12,8 @@ public class ArmazenamentoMock implements Armazenamento {
 		
 		// TODO refactor Assert valor esperado pontuaç/ão
 		Usuario usuario = this.usuarios.get(nomeUsuario);
-		if (null != usuario) {
-			return usuario.getPontuacao(tipoPonto);
+		if (null != usuario && null != usuario.getPontuacao()) {
+			return usuario.getPontuacao().getPontos(tipoPonto);
 		}
 		return 0;
 	}

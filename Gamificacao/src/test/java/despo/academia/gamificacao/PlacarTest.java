@@ -3,6 +3,9 @@ package despo.academia.gamificacao;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import org.junit.jupiter.api.Test;
 
 public class PlacarTest {
@@ -50,10 +53,13 @@ public class PlacarTest {
 		pontuacaoEsperada.adicionarPontos("estrela", 7);
 		pontuacaoEsperada.adicionarPontos("moeda", 1);
 		
-		assertEquals(pontuacaoEsperada, placar.recuperarPontuacaoDoUsuario("guerra"));
+		Pontuacao pontuacao = placar.recuperarPontuacaoDoUsuario("guerra");
+		
+		assertThat(pontuacao, is(pontuacaoEsperada));
+//		assertEquals(pontuacaoEsperada, pontuacao);
 	}
 
-	private void verificarPontuacaoUsuario(String tipoPonto, String nomeUsuario, Integer valorEsperado) {
+	private void verificarPontuacaoUsuario(String tipoPonto, String nomeUsuario, Integer valorEsperado) {		
 		assertEquals(valorEsperado, mock.recuperarPontuacaoUsuario(tipoPonto, nomeUsuario));
 	}
 }

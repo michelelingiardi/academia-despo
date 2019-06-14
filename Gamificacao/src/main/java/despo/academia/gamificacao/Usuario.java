@@ -1,14 +1,12 @@
 package despo.academia.gamificacao;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Usuario {
-	private Map<String, Integer> pontuacao = new HashMap<>();
+	private Pontuacao pontuacao;
 	private String nome;	
 	
 	public Usuario(String nome) {
 		this.nome = nome;
+		this.pontuacao = new Pontuacao();
 	}
 
 	public String getNome() {
@@ -18,14 +16,15 @@ public class Usuario {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public Integer getPontuacao(String tipoPonto) {
-		return pontuacao.getOrDefault(tipoPonto, 0);
+	
+	public Pontuacao getPontuacao() {
+		return this.pontuacao;
 	}
-
-	public void adicionarPontos(String tipoPonto, Integer pontos) {
-		Integer pontuacaoAtual = this.getPontuacao(tipoPonto);
-		pontuacao.put(tipoPonto, pontuacaoAtual + pontos);
+	
+	public void adicionarPontos(String tipoPonto, Integer quantidadePontos) {
+		if (quantidadePontos > 0) {
+			this.pontuacao.adicionarPontos(tipoPonto, quantidadePontos);
+		}		
 	}
 
 	@Override

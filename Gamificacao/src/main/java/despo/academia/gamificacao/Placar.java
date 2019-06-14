@@ -13,8 +13,8 @@ public class Placar {
 	}
 
 	public Pontuacao recuperarPontuacaoDoUsuario(String nomeUsuario) {
-		// TODO Auto-generated method stub
-		return null;
+		Usuario usuario = armazenamento.recuperarUsuario(nomeUsuario);
+		return usuario.getPontuacao();
 	}
 
 }

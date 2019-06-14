@@ -1,6 +1,8 @@
 package despo.academia.gamificacao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ArmazenamentoMock implements Armazenamento {
@@ -25,6 +27,11 @@ public class ArmazenamentoMock implements Armazenamento {
 	public void armazenarPontuacaoUsuario(Usuario usuario) {
 		this.chamouArmazenarUsuario = true;
 		this.usuarios.put(usuario.getNome(), usuario);
+	}
+	
+	@Override
+	public List<Usuario> recuperarUsuarios() {
+		return new ArrayList<Usuario>(this.usuarios.values());
 	}
 
 }

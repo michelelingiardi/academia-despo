@@ -12,13 +12,13 @@ public class Usuario {
 	public String getNome() {
 		return nome;
 	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
 	
 	public Pontuacao getPontuacao() {
 		return this.pontuacao;
+	}
+	
+	public Integer getPontos(String tipoPonto) {
+		return pontuacao.getPontos(tipoPonto);
 	}
 	
 	public void adicionarPontos(String tipoPonto, Integer quantidadePontos) {

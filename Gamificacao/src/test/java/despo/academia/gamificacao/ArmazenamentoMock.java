@@ -9,6 +9,8 @@ public class ArmazenamentoMock implements Armazenamento {
 	public boolean chamouArmazenarUsuario = false;
 	
 	public Integer recuperarPontuacaoUsuario(String tipoPonto, String nomeUsuario) {
+		
+		// TODO refactor Assert valor esperado pontuaç/ão
 		Usuario usuario = this.usuarios.get(nomeUsuario);
 		if (null != usuario) {
 			return usuario.getPontuacao(tipoPonto);

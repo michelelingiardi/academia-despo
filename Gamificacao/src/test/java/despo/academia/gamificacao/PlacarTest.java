@@ -37,6 +37,22 @@ public class PlacarTest {
 		this.verificarPontuacaoUsuario("moeda", "guerra", 3);
 	}
 	
+	@Test
+	public void recuperarPontuacaoDoUsuario() {
+		mock = new ArmazenamentoMock();
+		Placar placar = new Placar(mock);
+		
+		placar.registrarPontoParaUsuario("estrela", "guerra", 7);
+		placar.registrarPontoParaUsuario("moeda", "guerra", 1);
+		placar.registrarPontoParaUsuario("curtida", "guerra", 0);
+		
+		Pontuacao pontuacaoEsperada = new Pontuacao();
+		pontuacaoEsperada.adicionarPontos("estrela", 7);
+		pontuacaoEsperada.adicionarPontos("moeda", 1);
+		
+		assertEquals(pontuacaoEsperada, placar.recuperarPontuacaoDoUsuario("guerra"));
+	}
+
 	private void verificarPontuacaoUsuario(String tipoPonto, String nomeUsuario, Integer valorEsperado) {
 		assertEquals(valorEsperado, mock.recuperarPontuacaoUsuario(tipoPonto, nomeUsuario));
 	}

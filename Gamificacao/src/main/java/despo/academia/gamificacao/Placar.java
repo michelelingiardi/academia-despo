@@ -12,4 +12,9 @@ public class Placar {
 		armazenamento.armazenarPontuacaoUsuario(usuario);		
 	}
 
+	public Pontuacao recuperarPontuacaoDoUsuario(String nomeUsuario) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

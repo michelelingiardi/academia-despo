@@ -1,8 +1,10 @@
 package despo.academia.gamificacao;
 
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Placar {	
 	Armazenamento armazenamento;
@@ -27,7 +29,12 @@ public class Placar {
 	public Map<String, Integer> recuperarRanking(String tipoPonto) {
 		List<Usuario> usuarios = armazenamento.recuperarUsuarios();
 		
-		usuarios.sort((Usuario u1, Usuario u2) -> u2.getPontos(tipoPonto)-u1.getPontos(tipoPonto));
+		Comparator<Usuario> usuarioComparator = (Usuario u1, Usuario u2) -> u1.getPontos(tipoPonto)-u2.getPontos(tipoPonto);
+		
+		usuarios = usuarios.stream()
+				.filter( u -> u.getPontos(tipoPonto) > 0 )
+				.sorted(usuarioComparator.reversed())
+				.collect(Collectors.toList());
 		
 		Map<String, Integer> ranking = new LinkedHashMap<>();
 		usuarios.forEach( u -> {

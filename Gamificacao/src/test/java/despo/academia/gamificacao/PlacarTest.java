@@ -3,7 +3,12 @@ package despo.academia.gamificacao;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -83,20 +88,24 @@ public class PlacarTest {
 	
 	@Test
 	public void recuperarRankingSemPontuacaoZerada() {
-		placar.registrarPontoParaUsuario(CURTIDA, "fernandes", 5);
-		placar.registrarPontoParaUsuario(ESTRELA, "fernandes", 19);
-		placar.registrarPontoParaUsuario(ESTRELA, "guerra", 25);
-		placar.registrarPontoParaUsuario(ESTRELA, "rodrigo", 17);		
-		placar.registrarPontoParaUsuario(MOEDA, "fernandes", 200);
-		placar.registrarPontoParaUsuario(MOEDA, "mattos", 201);
-		placar.registrarPontoParaUsuario(MOEDA, "toco", 0);
+		placar.registrarPontoParaUsuario(CURTIDA, 	"fernandes", 	5);
+		placar.registrarPontoParaUsuario(ESTRELA, 	"fernandes", 	19);
+		placar.registrarPontoParaUsuario(ESTRELA, 	"guerra", 		25);
+		placar.registrarPontoParaUsuario(ESTRELA, 	"rodrigo", 		17);		
+		placar.registrarPontoParaUsuario(MOEDA, 	"fernandes", 	200);
+		placar.registrarPontoParaUsuario(MOEDA, 	"mattos", 		201);
+		placar.registrarPontoParaUsuario(MOEDA, 	"toco", 		0);
+		
 		Map<String, Integer> ranking = placar.recuperarRanking(MOEDA);
 		
-		Map<String, Integer> rankingEsperado = new LinkedHashMap<>();
-		rankingEsperado.put("mattos", 201);
-		rankingEsperado.put("fernandes", 200);
+		List<String> 	rankingUsuario 		= new ArrayList<String>(ranking.keySet());
+		List<Integer> 	rankingPontuacao 	= new ArrayList<Integer>(ranking.values());
 		
-		assertThat(ranking, is(rankingEsperado));
+		List<String> 	rankingUsuarioEsperado 		= new ArrayList<String>(Arrays.asList("mattos", "fernandes"));
+		List<Integer> 	rakingPontuacaoEsperado 	= new ArrayList<Integer>(Arrays.asList(201, 200));
+		
+		assertThat(rankingUsuario, is(rankingUsuarioEsperado));
+		assertThat(rankingPontuacao, is(rakingPontuacaoEsperado));
 	}
 	
 	private void verificarPontuacaoUsuario(String tipoPonto, String nomeUsuario, Integer valorEsperado) {		

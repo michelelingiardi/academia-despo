@@ -3,6 +3,8 @@ package despo.academia.gamificacao;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.BeforeEach;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -10,55 +12,56 @@ import org.junit.jupiter.api.Test;
 
 public class PlacarTest {
 	
-	ArmazenamentoMock mock;
+	ArmazenamentoMock mock;	
+	Placar placar;
+	
+	public static final String ESTRELA = "estrela";
+	public static final String MOEDA = "moeda";
+	public static final String CURTIDA = "curtida";
+	
+	@BeforeEach
+	public void criarPlacar() {
+		mock = new ArmazenamentoMock();
+		placar = new Placar(mock);
+	}
 
 	@Test
 	public void registrarPontosParaUsuario() {
-		mock = new ArmazenamentoMock();
-		Placar placar = new Placar(mock);
-		placar.registrarPontoParaUsuario("estrela", "guerra", 10);
+		placar.registrarPontoParaUsuario(ESTRELA, "guerra", 10);
 		assertTrue(mock.chamouArmazenarUsuario);
-		assertEquals(10, mock.recuperarPontuacaoUsuario("estrela", "guerra"));
+		assertEquals(10, mock.recuperarPontuacaoUsuario(ESTRELA, "guerra"));
 	}
 	
 	@Test
 	public void registrarMaisPontosParaUsuario() {
-		mock = new ArmazenamentoMock();
-		Placar placar = new Placar(mock);
-		placar.registrarPontoParaUsuario("estrela", "guerra", 10);
-		placar.registrarPontoParaUsuario("estrela", "guerra", 5);
-		this.verificarPontuacaoUsuario("estrela", "guerra", 15);		
+		placar.registrarPontoParaUsuario(ESTRELA, "guerra", 10);
+		placar.registrarPontoParaUsuario(ESTRELA, "guerra", 5);
+		this.verificarPontuacaoUsuario(ESTRELA, "guerra", 15);		
 	}
 	
 	@Test
 	public void registrarTiposDePontosDiferentesParaUsuario() {
-		mock = new ArmazenamentoMock();
-		Placar placar = new Placar(mock);
-		placar.registrarPontoParaUsuario("estrela", "guerra", 7);
-		placar.registrarPontoParaUsuario("moeda", "guerra", 3);
-		this.verificarPontuacaoUsuario("estrela", "guerra", 7);
-		this.verificarPontuacaoUsuario("moeda", "guerra", 3);
+		placar.registrarPontoParaUsuario(ESTRELA, "guerra", 7);
+		placar.registrarPontoParaUsuario(MOEDA, "guerra", 3);
+		this.verificarPontuacaoUsuario(ESTRELA, "guerra", 7);
+		this.verificarPontuacaoUsuario(MOEDA, "guerra", 3);
 	}
 	
 	@Test
 	public void recuperarPontuacaoDoUsuario() {
-		mock = new ArmazenamentoMock();
-		Placar placar = new Placar(mock);
-		
-		placar.registrarPontoParaUsuario("estrela", "guerra", 7);
-		placar.registrarPontoParaUsuario("moeda", "guerra", 1);
-		placar.registrarPontoParaUsuario("curtida", "guerra", 0);
+		placar.registrarPontoParaUsuario(ESTRELA, "guerra", 7);
+		placar.registrarPontoParaUsuario(MOEDA, "guerra", 1);
+		placar.registrarPontoParaUsuario(CURTIDA, "guerra", 0);
 		
 		Pontuacao pontuacaoEsperada = new Pontuacao();
-		pontuacaoEsperada.adicionarPontos("estrela", 7);
-		pontuacaoEsperada.adicionarPontos("moeda", 1);
+		pontuacaoEsperada.adicionarPontos(ESTRELA, 7);
+		pontuacaoEsperada.adicionarPontos(MOEDA, 1);
 		
 		Pontuacao pontuacao = placar.recuperarPontuacaoDoUsuario("guerra");
 		
 		assertThat(pontuacao, is(pontuacaoEsperada));
-//		assertEquals(pontuacaoEsperada, pontuacao);
 	}
-
+	
 	private void verificarPontuacaoUsuario(String tipoPonto, String nomeUsuario, Integer valorEsperado) {		
 		assertEquals(valorEsperado, mock.recuperarPontuacaoUsuario(tipoPonto, nomeUsuario));
 	}

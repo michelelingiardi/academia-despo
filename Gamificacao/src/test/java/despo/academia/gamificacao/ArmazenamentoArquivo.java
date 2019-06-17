@@ -38,30 +38,45 @@ public class ArmazenamentoArquivo implements Armazenamento {
 	public List<Usuario> recuperarUsuarios() {
 		List<Usuario> usuarios = new ArrayList<>();
 		try {
-			Path file = Paths.get(nomeDoArquivo);
-			List<String> registros = Files.lines(file, StandardCharsets.UTF_8).collect(Collectors.toList());
+			Path arquivo = Paths.get(nomeDoArquivo);
+			List<String> pontuacoesPorUsuario = Files.lines(arquivo, StandardCharsets.UTF_8).collect(Collectors.toList());
 			
-			for (String r : registros) {
-				String[] usuarioPontuacao = r.split(":");
-				String nomeUsuario = usuarioPontuacao[0];
-				String pontuacao = usuarioPontuacao[1];
-				String[] pontuacaoPorTipo = pontuacao.split(";");
-				
-				Usuario usuario = new Usuario(nomeUsuario);
-				
-				for (int i = 0; i < pontuacaoPorTipo.length; i++) {
-					String[] tipoPonto = pontuacaoPorTipo[i].split("=");
-					usuario.adicionarPontos(tipoPonto[0], Integer.valueOf(tipoPonto[1]));
-				}
-				
-				
-				usuarios.add(usuario);
+			for (String registro : pontuacoesPorUsuario) {				
+				usuarios.add(criarUsuario(extrairUsuario(registro), separarTiposDePontuacao(registro)));
 			}
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return usuarios;
+	}
+	
+	private String[] separarUsuarioDePontuacao(String registro) {
+		return registro.split(":");
+	}
+
+	private String extrairUsuario(String registro) {
+		return separarUsuarioDePontuacao(registro)[0];
+	}
+
+	private String extrairTodasPontuacoes(String registro) {
+		return separarUsuarioDePontuacao(registro)[1];
+	}
+	
+	private String[] separarTiposDePontuacao(String registro) {
+		return extrairTodasPontuacoes(registro).split(";");
+	}
+	
+	private Usuario criarUsuario(String nomeUsuario, String[] pontuacaoPorTipo) {
+		Usuario usuario = new Usuario(nomeUsuario);
+
+		for (String item : pontuacaoPorTipo) {
+			String tipoPonto = item.split("=")[0];
+			Integer quantidadePontos = Integer.valueOf(item.split("=")[1]);
+			usuario.adicionarPontos(tipoPonto, quantidadePontos);
+		}
+		
+		return usuario;
 	}
 
 }

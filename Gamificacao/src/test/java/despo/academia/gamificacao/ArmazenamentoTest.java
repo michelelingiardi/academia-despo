@@ -23,11 +23,13 @@ public class ArmazenamentoTest {
 	public static final String MOEDA = "moeda";
 	public static final String CURTIDA = "curtida";
 	
+	public static final String NOME_DO_ARQUIVO = "testeArmazenamentoPontuacao.txt";
+	
 	ArmazenamentoArquivo armazenamento;
 	
 	@BeforeEach
-	public void criarArquivo() {
-		armazenamento = new ArmazenamentoArquivo("testeArmazenamentoPontuacao.txt");
+	public void inicializarArmazenamento() {
+		armazenamento = new ArmazenamentoArquivo(NOME_DO_ARQUIVO);
 	}
 	
 	@Test
@@ -42,7 +44,7 @@ public class ArmazenamentoTest {
 	
 	@Test
 	public void recuperarPontuacaoTodosUsuarios() throws IOException {		
-		Path arquivo = Paths.get("testeArmazenamentoPontuacao.txt");
+		Path arquivo = Paths.get(NOME_DO_ARQUIVO);
 		Files.write(arquivo, Arrays.asList("marv:estrela=7;","arthur_dent:estrela=1;curtida=4;"), StandardCharsets.UTF_8);
 		
 		Usuario usuario1 = new Usuario("marv");

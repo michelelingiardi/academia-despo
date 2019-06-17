@@ -61,6 +61,17 @@ public class ArmazenamentoTest {
 		assertThat(resultadoObtido.toString(), is(resultadoEsperado.toString()));
 	}
 	
+	@Test
+	public void recuperarPontuacaoUsuario() throws IOException {
+		Path arquivo = Paths.get(NOME_DO_ARQUIVO);
+		Files.write(arquivo, Arrays.asList("marv:estrela=7;","arthur_dent:estrela=1;curtida=4;"), StandardCharsets.UTF_8);
+		
+		Usuario resultadoEsperado = new Usuario("marv");
+		resultadoEsperado.adicionarPontos(ESTRELA, 7);
+		
+		assertThat(armazenamento.recuperarUsuario("marv"), is(resultadoEsperado));
+	}
+	
 	@AfterEach
 	private void excluirArquivo() throws IOException {
 		Path arquivo = Paths.get("testeArmazenamentoPontuacao.txt");

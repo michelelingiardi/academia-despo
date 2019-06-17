@@ -34,4 +34,10 @@ public class ArmazenamentoMock implements Armazenamento {
 		return new ArrayList<Usuario>(this.usuarios.values());
 	}
 
+	@Override
+	public Integer recuperarPontos(String tipoPonto, String nomeUsuario) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

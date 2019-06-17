@@ -85,4 +85,10 @@ public class ArmazenamentoArquivo implements Armazenamento {
 		return usuario;
 	}
 
+	@Override
+	public Integer recuperarPontos(String tipoPonto, String nomeUsuario) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

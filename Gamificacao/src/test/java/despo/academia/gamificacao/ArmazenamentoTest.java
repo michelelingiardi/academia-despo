@@ -81,6 +81,14 @@ public class ArmazenamentoTest {
 		assertThrows(UsuarioInexistenteException.class, () -> { armazenamento.recuperarUsuario("zaphod"); });
 	}
 	
+	@Test
+	public void recuperarQuantidadeDePontosDoUsuario() throws IOException {
+		Path arquivo = Paths.get(NOME_DO_ARQUIVO);
+		Files.write(arquivo, Arrays.asList("marv:estrela=7;","arthur_dent:estrela=1;curtida=4;"), StandardCharsets.UTF_8);
+		
+		assertThat(armazenamento.recuperarPontos(ESTRELA, "arthur_dent"), is(1));
+	}
+	
 	@AfterEach
 	private void excluirArquivo() throws IOException {
 		Path arquivo = Paths.get("testeArmazenamentoPontuacao.txt");

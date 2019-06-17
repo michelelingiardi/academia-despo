@@ -26,10 +26,11 @@ public class Usuario {
 			this.pontuacao.adicionarPontos(tipoPonto, quantidadePontos);
 		}
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Usuario [pontuacao=" + pontuacao + ", nome=" + nome + "]";
+//		return "Usuario [pontuacao=" + pontuacao + ", nome=" + nome + "]";
+		return nome + ":" + pontuacao;
 	}
 	
 	

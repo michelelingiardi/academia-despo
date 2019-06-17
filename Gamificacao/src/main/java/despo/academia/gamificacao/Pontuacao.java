@@ -10,6 +10,10 @@ public class Pontuacao {
 		return pontos.getOrDefault(tipoPonto, 0);
 	}
 	
+	public Map<String, Integer> getTodosOsPontos() {
+		return pontos;
+	}
+	
 	public void adicionarPontos(String tipoPonto, Integer quantidadePontos) {
 		Integer pontuacaoAtual = this.getPontos(tipoPonto);
 		pontos.put(tipoPonto, pontuacaoAtual + quantidadePontos);	
@@ -17,7 +21,11 @@ public class Pontuacao {
 
 	@Override
 	public String toString() {
-		return "Pontuacao [pontuacao=" + pontos + "]";
+		StringBuilder pontosBuilder = new StringBuilder();
+		pontos.forEach((tipoPonto, quantidade) -> {
+			pontosBuilder.append(tipoPonto + "=" + quantidade + ";");
+		});
+		return pontosBuilder.toString();
 	}
 
 	@Override

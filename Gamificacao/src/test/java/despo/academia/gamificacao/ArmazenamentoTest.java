@@ -1,5 +1,6 @@
 package despo.academia.gamificacao;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -70,6 +71,14 @@ public class ArmazenamentoTest {
 		resultadoEsperado.adicionarPontos(ESTRELA, 7);
 		
 		assertThat(armazenamento.recuperarUsuario("marv").toString(), is(resultadoEsperado.toString()));
+	}
+	
+	@Test
+	public void recuperarUsuarioNaoExistente() throws IOException {
+		Path arquivo = Paths.get(NOME_DO_ARQUIVO);
+		Files.write(arquivo, Arrays.asList("marv:estrela=7;","arthur_dent:estrela=1;curtida=4;"), StandardCharsets.UTF_8);
+		
+		assertThrows(UsuarioInexistenteException.class, () -> { armazenamento.recuperarUsuario("zaphod"); });
 	}
 	
 	@AfterEach

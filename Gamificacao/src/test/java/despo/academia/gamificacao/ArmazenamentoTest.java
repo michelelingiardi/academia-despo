@@ -69,7 +69,7 @@ public class ArmazenamentoTest {
 		Usuario resultadoEsperado = new Usuario("marv");
 		resultadoEsperado.adicionarPontos(ESTRELA, 7);
 		
-		assertThat(armazenamento.recuperarUsuario("marv"), is(resultadoEsperado));
+		assertThat(armazenamento.recuperarUsuario("marv").toString(), is(resultadoEsperado.toString()));
 	}
 	
 	@AfterEach

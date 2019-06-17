@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ArmazenamentoArquivo implements Armazenamento {
 	private String nomeDoArquivo;
@@ -30,8 +29,15 @@ public class ArmazenamentoArquivo implements Armazenamento {
 
 	@Override
 	public Usuario recuperarUsuario(String nomeUsuario) {
-		// TODO Auto-generated method stub
-		return null;		
+		List<Usuario> usuarios = this.recuperarUsuarios();
+		
+		for (Usuario u : usuarios) {
+			if (u.getNome().equalsIgnoreCase(nomeUsuario)) {
+				return u;
+			}
+		}
+		
+		return null;
 	}
 
 	@Override

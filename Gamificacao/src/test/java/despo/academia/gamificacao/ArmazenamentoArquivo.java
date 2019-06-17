@@ -37,7 +37,7 @@ public class ArmazenamentoArquivo implements Armazenamento {
 			}
 		}
 		
-		return null;
+		throw new UsuarioInexistenteException();
 	}
 
 	@Override

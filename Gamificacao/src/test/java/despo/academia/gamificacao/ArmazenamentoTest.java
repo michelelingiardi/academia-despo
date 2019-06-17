@@ -56,7 +56,7 @@ public class ArmazenamentoTest {
 		resultadoEsperado.add(usuario2);
 		
 		List<Usuario> resultadoObtido = armazenamento.recuperarUsuarios();		
-		assertThat(resultadoObtido, is(resultadoEsperado));
+		assertThat(resultadoObtido.toString(), is(resultadoEsperado.toString()));
 	}
 	
 	@AfterEach

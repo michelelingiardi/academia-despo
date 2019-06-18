@@ -18,7 +18,7 @@ public class ArmazenamentoArquivo implements Armazenamento {
 	}
 	
 	@Override
-	public void armazenarPontuacaoUsuario(Usuario usuario) {				
+	public void armazenarPontuacao(Usuario usuario) {				
 		Path file = Paths.get(nomeDoArquivo);
 		try {
 			Files.write(file, Arrays.asList(usuario.toString()), StandardCharsets.UTF_8);
@@ -30,13 +30,9 @@ public class ArmazenamentoArquivo implements Armazenamento {
 	@Override
 	public Usuario recuperarUsuario(String nomeUsuario) {
 		List<Usuario> usuarios = this.recuperarUsuarios();
-		
 		for (Usuario u : usuarios) {
-			if (u.getNome().equalsIgnoreCase(nomeUsuario)) {
-				return u;
-			}
+			if (u.getNome().equalsIgnoreCase(nomeUsuario)) return u;
 		}
-		
 		throw new UsuarioInexistenteException();
 	}
 
@@ -46,11 +42,9 @@ public class ArmazenamentoArquivo implements Armazenamento {
 		try {
 			Path arquivo = Paths.get(nomeDoArquivo);
 			List<String> pontuacoesPorUsuario = Files.lines(arquivo, StandardCharsets.UTF_8).collect(Collectors.toList());
-			
 			for (String registro : pontuacoesPorUsuario) {				
 				usuarios.add(criarUsuario(extrairUsuario(registro), separarTiposDePontuacao(registro)));
 			}
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -75,20 +69,17 @@ public class ArmazenamentoArquivo implements Armazenamento {
 	
 	private Usuario criarUsuario(String nomeUsuario, String[] pontuacaoPorTipo) {
 		Usuario usuario = new Usuario(nomeUsuario);
-
 		for (String item : pontuacaoPorTipo) {
 			String tipoPonto = item.split("=")[0];
 			Integer quantidadePontos = Integer.valueOf(item.split("=")[1]);
 			usuario.adicionarPontos(tipoPonto, quantidadePontos);
 		}
-		
 		return usuario;
 	}
 
 	@Override
 	public Integer recuperarPontos(String tipoPonto, String nomeUsuario) {
 		Usuario usuario = this.recuperarUsuario(nomeUsuario);
-		
 		return usuario.getPontos(tipoPonto);
 	}
 

@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -31,6 +31,7 @@ public class PlacarTest {
 	}
 
 	@Test
+	@DisplayName("Registrar um tipo de ponto para um usuário.")
 	public void registrarPontosParaUsuario() {
 		placar.registrarPontoParaUsuario(ESTRELA, "guerra", 10);
 		assertTrue(mock.chamouArmazenarUsuario);
@@ -38,6 +39,7 @@ public class PlacarTest {
 	}
 	
 	@Test
+	@DisplayName("Adicionar mais pontos de um mesmo tipo para um usuário.")
 	public void registrarMaisPontosParaUsuario() {
 		placar.registrarPontoParaUsuario(ESTRELA, "guerra", 10);
 		placar.registrarPontoParaUsuario(ESTRELA, "guerra", 5);
@@ -45,6 +47,7 @@ public class PlacarTest {
 	}
 	
 	@Test
+	@DisplayName("Registrar mais de um tipo de ponto para um usuário.")
 	public void registrarTiposDePontosDiferentesParaUsuario() {
 		placar.registrarPontoParaUsuario(ESTRELA, "guerra", 7);
 		placar.registrarPontoParaUsuario(MOEDA, "guerra", 3);
@@ -53,6 +56,7 @@ public class PlacarTest {
 	}
 	
 	@Test
+	@DisplayName("Retornar todos os pontos de um usuário.")
 	public void recuperarPontuacaoDoUsuario() {
 		placar.registrarPontoParaUsuario(ESTRELA, "guerra", 7);
 		placar.registrarPontoParaUsuario(MOEDA, "guerra", 1);
@@ -68,6 +72,8 @@ public class PlacarTest {
 	}
 	
 	@Test
+	@DisplayName("Retornar ranking de um tipo de ponto, com a lista de usuário que possuem "
+			+ "aquele ponto ordenados do que possui mais para o que possui menos.")
 	public void recuperarRanking() {
 		placar.registrarPontoParaUsuario(ESTRELA, "fernandes", 19);
 		placar.registrarPontoParaUsuario(ESTRELA, "guerra", 25);
@@ -76,15 +82,18 @@ public class PlacarTest {
 		placar.registrarPontoParaUsuario(MOEDA, "fernandes", 1);
 		Map<String, Integer> ranking = placar.recuperarRanking(ESTRELA);
 		
-		Map<String, Integer> rankingEsperado = new LinkedHashMap<>();
-		rankingEsperado.put("guerra", 25);
-		rankingEsperado.put("fernandes", 19);
-		rankingEsperado.put("rodrigo", 17);
+		List<String> 	rankingUsuario 		= new ArrayList<String>(ranking.keySet());
+		List<Integer> 	rankingPontuacao 	= new ArrayList<Integer>(ranking.values());
 		
-		assertThat(ranking, is(rankingEsperado));
+		List<String> 	rankingUsuarioEsperado 		= new ArrayList<String>(Arrays.asList("guerra", "fernandes", "rodrigo"));
+		List<Integer> 	rakingPontuacaoEsperado 	= new ArrayList<Integer>(Arrays.asList(25, 19, 17));
+		
+		assertThat(rankingUsuario, is(rankingUsuarioEsperado));
+		assertThat(rankingPontuacao, is(rakingPontuacaoEsperado));
 	}
 	
 	@Test
+	@DisplayName("Retornar ranking de usuários, desconsiderando usuário com pontuação zerada.")
 	public void recuperarRankingSemPontuacaoZerada() {
 		placar.registrarPontoParaUsuario(CURTIDA, 	"fernandes", 	5);
 		placar.registrarPontoParaUsuario(ESTRELA, 	"fernandes", 	19);

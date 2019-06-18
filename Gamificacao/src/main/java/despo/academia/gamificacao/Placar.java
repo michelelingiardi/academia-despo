@@ -17,7 +17,7 @@ public class Placar {
 		Usuario usuario = armazenamento.recuperarUsuario(nomeUsuario);
 		if (pontos > 0) {
 			usuario.adicionarPontos(tipoPonto, pontos);
-			armazenamento.armazenarPontuacaoUsuario(usuario);
+			armazenamento.armazenarPontuacao(usuario);
 		}
 	}
 

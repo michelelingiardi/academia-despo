@@ -24,7 +24,7 @@ public class ArmazenamentoMock implements Armazenamento {
 	}
 
 	@Override
-	public void armazenarPontuacaoUsuario(Usuario usuario) {
+	public void armazenarPontuacao(Usuario usuario) {
 		this.chamouArmazenarUsuario = true;
 		this.usuarios.put(usuario.getNome(), usuario);
 	}

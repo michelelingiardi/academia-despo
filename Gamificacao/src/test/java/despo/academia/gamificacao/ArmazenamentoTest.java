@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class ArmazenamentoTest {
@@ -34,16 +35,18 @@ public class ArmazenamentoTest {
 	}
 	
 	@Test
+	@DisplayName("Armazenar que um usuário recebeu uma quantidade de um tipo de ponto.")
 	public void armazenarPontuacaoUsuario() {
 		Usuario usuario = new Usuario("guerra");
 		usuario.adicionarPontos(ESTRELA, 7);
-		armazenamento.armazenarPontuacaoUsuario(usuario);
-		Path arquivo = Paths.get("testeArmazenamentoPontuacao.txt");
+		armazenamento.armazenarPontuacao(usuario);
+		Path arquivo = Paths.get(NOME_DO_ARQUIVO);
 		assertTrue(Files.exists(arquivo));
-//		assertEquals(usuario, armazenamento.recuperarUsuario("guerra"));
+		assertThat(usuario.toString(), is(armazenamento.recuperarUsuario("guerra").toString()));
 	}
 	
 	@Test
+	@DisplayName("Retornar todos os usuários que já receberam algum tipo de ponto.")
 	public void recuperarPontuacaoTodosUsuarios() throws IOException {		
 		Path arquivo = Paths.get(NOME_DO_ARQUIVO);
 		Files.write(arquivo, Arrays.asList("marv:estrela=7;","arthur_dent:estrela=1;curtida=4;"), StandardCharsets.UTF_8);
@@ -63,6 +66,7 @@ public class ArmazenamentoTest {
 	}
 	
 	@Test
+	@DisplayName("Retornar todos os tipos de ponto que já foram registrados para algum usuário.")
 	public void recuperarPontuacaoUsuario() throws IOException {
 		Path arquivo = Paths.get(NOME_DO_ARQUIVO);
 		Files.write(arquivo, Arrays.asList("marv:estrela=7;","arthur_dent:estrela=1;curtida=4;"), StandardCharsets.UTF_8);
@@ -74,6 +78,7 @@ public class ArmazenamentoTest {
 	}
 	
 	@Test
+	@DisplayName("Busca por usuário inexistente no arquivo.")
 	public void recuperarUsuarioNaoExistente() throws IOException {
 		Path arquivo = Paths.get(NOME_DO_ARQUIVO);
 		Files.write(arquivo, Arrays.asList("marv:estrela=7;","arthur_dent:estrela=1;curtida=4;"), StandardCharsets.UTF_8);
@@ -82,6 +87,7 @@ public class ArmazenamentoTest {
 	}
 	
 	@Test
+	@DisplayName("Recuperar quantos pontos de um tipo tem um usuário.")
 	public void recuperarQuantidadeDePontosDoUsuario() throws IOException {
 		Path arquivo = Paths.get(NOME_DO_ARQUIVO);
 		Files.write(arquivo, Arrays.asList("marv:estrela=7;","arthur_dent:estrela=1;curtida=4;"), StandardCharsets.UTF_8);

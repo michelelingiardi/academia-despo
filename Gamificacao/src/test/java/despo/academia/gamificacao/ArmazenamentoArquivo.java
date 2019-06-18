@@ -11,29 +11,36 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ArmazenamentoArquivo implements Armazenamento {
-	private String nomeDoArquivo;
+	private Path arquivo;
 	
 	public ArmazenamentoArquivo(String nomeDoArquivo) {
-		this.nomeDoArquivo = nomeDoArquivo;
+		this.arquivo = Paths.get(nomeDoArquivo);
 	}
 	
 	@Override
 	public void armazenarPontuacao(Usuario usuario) {				
-		Path arquivo = Paths.get(nomeDoArquivo);
 		try {
 			if (Files.exists(arquivo)) {
 				List<String> dadosDoArquivo = new ArrayList<>(Files.readAllLines(arquivo, StandardCharsets.UTF_8));
-				for (int i = 0; i < dadosDoArquivo.size(); i++) {
-					if (this.extrairUsuario(dadosDoArquivo.get(i)).equalsIgnoreCase(usuario.getNome())) {
-						dadosDoArquivo.set(i, usuario.toString());
-					}
-				}
-				Files.write(arquivo, dadosDoArquivo, StandardCharsets.UTF_8);
+				substituirRegistroSeUsuarioJaExiste(usuario, dadosDoArquivo);
+				gravarArquivo(dadosDoArquivo);
 			} else {
-				Files.write(arquivo, Arrays.asList(usuario.toString()), StandardCharsets.UTF_8);
+				gravarArquivo(Arrays.asList(usuario.toString()));
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			tratarErro(e);
+		}
+	}
+
+	private void gravarArquivo(List<String> dadosDoArquivo) throws IOException {
+		Files.write(this.arquivo, dadosDoArquivo, StandardCharsets.UTF_8);
+	}
+
+	private void substituirRegistroSeUsuarioJaExiste(Usuario usuario, List<String> dadosDoArquivo) {
+		for (int i = 0; i < dadosDoArquivo.size(); i++) {
+			if (this.extrairUsuario(dadosDoArquivo.get(i)).equalsIgnoreCase(usuario.getNome())) {
+				dadosDoArquivo.set(i, usuario.toString());
+			}
 		}
 	}
 
@@ -50,13 +57,12 @@ public class ArmazenamentoArquivo implements Armazenamento {
 	public List<Usuario> recuperarUsuarios() {
 		List<Usuario> usuarios = new ArrayList<>();
 		try {
-			Path arquivo = Paths.get(nomeDoArquivo);
 			List<String> pontuacoesPorUsuario = Files.lines(arquivo, StandardCharsets.UTF_8).collect(Collectors.toList());
 			for (String registro : pontuacoesPorUsuario) {				
 				usuarios.add(criarUsuario(extrairUsuario(registro), separarTiposDePontuacao(registro)));
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			tratarErro(e);
 		}
 		return usuarios;
 	}
@@ -101,4 +107,8 @@ public class ArmazenamentoArquivo implements Armazenamento {
 		return usuario.getPontos(tipoPonto);
 	}
 
+	private void tratarErro(IOException e) {
+		e.printStackTrace();
+		throw new RuntimeException("Erro ao manipular arquivo.");
+	}
 }

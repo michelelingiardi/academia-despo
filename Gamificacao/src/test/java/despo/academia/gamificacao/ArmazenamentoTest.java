@@ -50,18 +50,21 @@ public class ArmazenamentoTest {
 	public void armazenarPontuacaoUsuarioExistente() throws IOException {
 		Path arquivo = Paths.get(NOME_DO_ARQUIVO);
 		Files.write(arquivo, Arrays.asList("marv:estrela=7;","arthur_dent:estrela=1;curtida=4;"), StandardCharsets.UTF_8);
-		
 		Usuario usuario = new Usuario("marv");
-		usuario.adicionarPontos(ESTRELA, 1);
+		usuario.adicionarPontos(CURTIDA, 1);
 		usuario.adicionarPontos(MOEDA, 10);
 		armazenamento.armazenarPontuacao(usuario);
-		Usuario resultadoObtido = armazenamento.recuperarUsuario("marv");
+		List<Usuario> resultadoObtido = armazenamento.recuperarUsuarios();
+				
+		Usuario u1 = new Usuario("marv");
+		u1.adicionarPontos(CURTIDA, 1);
+		u1.adicionarPontos(MOEDA, 10);
+		Usuario u2 = new Usuario("arthur_dent");
+		u2.adicionarPontos(ESTRELA, 1);
+		u2.adicionarPontos(CURTIDA, 4);
+		List<Usuario> resultadoEsperado = new ArrayList<>( Arrays.asList(u1, u2) );
 		
-		Usuario resultadoEsperado = new Usuario("marv");
-		resultadoEsperado.adicionarPontos(ESTRELA, 8);
-		resultadoEsperado.adicionarPontos(MOEDA, 10);
-		
-		assertThat(resultadoObtido, is(resultadoEsperado.toString()));
+		assertThat(resultadoObtido.toString(), is(resultadoEsperado.toString()));
 	}
 	
 	@Test

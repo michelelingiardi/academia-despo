@@ -19,9 +19,19 @@ public class ArmazenamentoArquivo implements Armazenamento {
 	
 	@Override
 	public void armazenarPontuacao(Usuario usuario) {				
-		Path file = Paths.get(nomeDoArquivo);
+		Path arquivo = Paths.get(nomeDoArquivo);
 		try {
-			Files.write(file, Arrays.asList(usuario.toString()), StandardCharsets.UTF_8);
+			if (Files.exists(arquivo)) {
+				List<String> dadosDoArquivo = new ArrayList<>(Files.readAllLines(arquivo, StandardCharsets.UTF_8));
+				for (int i = 0; i < dadosDoArquivo.size(); i++) {
+					if (this.extrairUsuario(dadosDoArquivo.get(i)).equalsIgnoreCase(usuario.getNome())) {
+						dadosDoArquivo.set(i, usuario.toString());
+					}
+				}
+				Files.write(arquivo, dadosDoArquivo, StandardCharsets.UTF_8);
+			} else {
+				Files.write(arquivo, Arrays.asList(usuario.toString()), StandardCharsets.UTF_8);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -67,11 +77,19 @@ public class ArmazenamentoArquivo implements Armazenamento {
 		return extrairTodasPontuacoes(registro).split(";");
 	}
 	
+	private String recuperarTipoPonto(String tipoPontoQuantidade) {
+		return tipoPontoQuantidade.split("=")[0];
+	}
+	
+	private Integer recuperarQuantidade(String tipoPontoQuantidade) {
+		return Integer.valueOf(tipoPontoQuantidade.split("=")[1]);
+	}
+	
 	private Usuario criarUsuario(String nomeUsuario, String[] pontuacaoPorTipo) {
 		Usuario usuario = new Usuario(nomeUsuario);
 		for (String item : pontuacaoPorTipo) {
-			String tipoPonto = item.split("=")[0];
-			Integer quantidadePontos = Integer.valueOf(item.split("=")[1]);
+			String tipoPonto = recuperarTipoPonto(item);
+			Integer quantidadePontos = recuperarQuantidade(item);
 			usuario.adicionarPontos(tipoPonto, quantidadePontos);
 		}
 		return usuario;

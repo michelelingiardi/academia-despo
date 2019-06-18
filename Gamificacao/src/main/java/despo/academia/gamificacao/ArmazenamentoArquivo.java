@@ -50,19 +50,21 @@ public class ArmazenamentoArquivo implements Armazenamento {
 		for (Usuario u : usuarios) {
 			if (u.getNome().equalsIgnoreCase(nomeUsuario)) return u;
 		}
-		throw new UsuarioInexistenteException();
+		return new Usuario(nomeUsuario);
 	}
 
 	@Override
 	public List<Usuario> recuperarUsuarios() {
 		List<Usuario> usuarios = new ArrayList<>();
-		try {
-			List<String> pontuacoesPorUsuario = Files.lines(arquivo, StandardCharsets.UTF_8).collect(Collectors.toList());
-			for (String registro : pontuacoesPorUsuario) {				
-				usuarios.add(criarUsuario(extrairUsuario(registro), separarTiposDePontuacao(registro)));
+		if (Files.exists(arquivo)) {
+			try {
+				List<String> pontuacoesPorUsuario = Files.lines(arquivo, StandardCharsets.UTF_8).collect(Collectors.toList());
+				for (String registro : pontuacoesPorUsuario) {				
+					usuarios.add(criarUsuario(extrairUsuario(registro), separarTiposDePontuacao(registro)));
+				}
+			} catch (IOException e) {
+				tratarErro(e);
 			}
-		} catch (IOException e) {
-			tratarErro(e);
 		}
 		return usuarios;
 	}

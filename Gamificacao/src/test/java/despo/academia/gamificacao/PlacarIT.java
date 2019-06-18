@@ -1,9 +1,14 @@
 package despo.academia.gamificacao;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,5 +33,11 @@ public class PlacarIT {
 		Pontuacao resultadoObtido = placar.recuperarPontuacaoDoUsuario(nomeUsuario);
 		
 		assertThat(resultadoEsperado, is(resultadoObtido.getTodosOsPontos()));
+	}
+	
+	@AfterEach
+	private void excluirArquivo() throws IOException {
+		Path arquivo = Paths.get(NOME_DO_ARQUIVO);
+		Files.deleteIfExists(arquivo);
 	}
 }

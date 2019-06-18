@@ -46,6 +46,25 @@ public class ArmazenamentoTest {
 	}
 	
 	@Test
+	@DisplayName("Armazenar pontuação para usuário já existente.")
+	public void armazenarPontuacaoUsuarioExistente() throws IOException {
+		Path arquivo = Paths.get(NOME_DO_ARQUIVO);
+		Files.write(arquivo, Arrays.asList("marv:estrela=7;","arthur_dent:estrela=1;curtida=4;"), StandardCharsets.UTF_8);
+		
+		Usuario usuario = new Usuario("marv");
+		usuario.adicionarPontos(ESTRELA, 1);
+		usuario.adicionarPontos(MOEDA, 10);
+		armazenamento.armazenarPontuacao(usuario);
+		Usuario resultadoObtido = armazenamento.recuperarUsuario("marv");
+		
+		Usuario resultadoEsperado = new Usuario("marv");
+		resultadoEsperado.adicionarPontos(ESTRELA, 8);
+		resultadoEsperado.adicionarPontos(MOEDA, 10);
+		
+		assertThat(resultadoObtido, is(resultadoEsperado.toString()));
+	}
+	
+	@Test
 	@DisplayName("Retornar todos os usuários que já receberam algum tipo de ponto.")
 	public void recuperarPontuacaoTodosUsuarios() throws IOException {		
 		Path arquivo = Paths.get(NOME_DO_ARQUIVO);

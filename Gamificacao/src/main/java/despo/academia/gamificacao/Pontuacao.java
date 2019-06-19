@@ -32,6 +32,8 @@ public class Pontuacao {
 		} else if (pontuacaoAtual == quantidadePontos) {
 			pontos.remove(tipoPonto);
 			ordenarPontosPorNome();
+		} else if (pontuacaoAtual < quantidadePontos) {
+			throw new PontuacaoInvalidaException("Pontuação removida do usuário deve ser menor ou igual a " + pontuacaoAtual + ".");
 		}
 	}
 	

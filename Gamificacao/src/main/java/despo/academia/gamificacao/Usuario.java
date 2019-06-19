@@ -5,8 +5,14 @@ public class Usuario {
 	private String nome;	
 	
 	public Usuario(String nome) {
+		this.validarNome(nome);
 		this.nome = nome;
 		this.pontuacao = new Pontuacao();
+	}
+
+	private void validarNome(String nomeUsuario) {
+		if (!nomeUsuario.matches("^[a-zA-Z0-9_]*$"))
+			throw new CaracteresInvalidosException();
 	}
 
 	public String getNome() {

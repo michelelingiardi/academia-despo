@@ -1,10 +1,11 @@
 package despo.academia.gamificacao;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Pontuacao {
-	private Map<String, Integer> pontos = new HashMap<>();
+	private Map<String, Integer> pontos = new LinkedHashMap<>();
 	
 	public Integer getPontos(String tipoPonto) {
 		return pontos.getOrDefault(tipoPonto, 0);
@@ -17,6 +18,20 @@ public class Pontuacao {
 	public void adicionarPontos(String tipoPonto, Integer quantidadePontos) {
 		Integer pontuacaoAtual = this.getPontos(tipoPonto);
 		pontos.put(tipoPonto, pontuacaoAtual + quantidadePontos);	
+		ordenarPontosPorNome();
+	}
+
+	private void ordenarPontosPorNome() {
+		pontos = pontos.entrySet()
+			.stream()
+			.sorted(Map.Entry.<String, Integer>comparingByKey())
+			.collect(
+				Collectors.toMap(
+					Map.Entry::getKey, Map.Entry::getValue, 
+					(tipoPonto, quantidade) ->
+						tipoPonto, LinkedHashMap::new
+				)
+			);
 	}
 
 	@Override

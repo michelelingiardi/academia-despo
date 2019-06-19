@@ -29,9 +29,37 @@ public class Usuario {
 	
 	@Override
 	public String toString() {
-//		return "Usuario [pontuacao=" + pontuacao + ", nome=" + nome + "]";
 		return nome + ":" + pontuacao;
 	}
-	
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((pontuacao == null) ? 0 : pontuacao.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (pontuacao == null) {
+			if (other.pontuacao != null)
+				return false;
+		} else if (!pontuacao.equals(other.pontuacao))
+			return false;
+		return true;
+	}	
 }

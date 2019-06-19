@@ -1,5 +1,6 @@
 package despo.academia.gamificacao;
 
+import org.hamcrest.collection.ArrayMatching;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,7 +45,6 @@ public class PlacarIT {
 		placar.registrarPontoParaUsuario(MOEDA, nomeUsuario, 20);
 		
 		Pontuacao resultadoObtido = placar.recuperarPontuacaoDoUsuario(nomeUsuario);
-		
 		assertThat(resultadoObtido.getTodosOsPontos(), is(resultadoEsperado));
 	}
 	
@@ -57,7 +57,7 @@ public class PlacarIT {
 		placar.registrarPontoParaUsuario(MOEDA, 	USUARIO_2, 20);
 		placar.registrarPontoParaUsuario(MOEDA, 	USUARIO_1,  5);
 		placar.registrarPontoParaUsuario(TOPICO, 	USUARIO_3, 40);
-		placar.registrarPontoParaUsuario(TOPICO, 	USUARIO_3, -1);
+//		placar.registrarPontoParaUsuario(TOPICO, 	USUARIO_3, -1);
 		placar.registrarPontoParaUsuario(ESTRELA, 	USUARIO_2, 40);
 		placar.registrarPontoParaUsuario(MOEDA, 	USUARIO_2, 30);
 		placar.registrarPontoParaUsuario(TOPICO, 	USUARIO_2, 60);
@@ -73,11 +73,10 @@ public class PlacarIT {
 		u2.adicionarPontos(MOEDA, 	50);
 		u2.adicionarPontos(ESTRELA, 40);
 		u2.adicionarPontos(TOPICO, 	60);
-		u3.adicionarPontos(TOPICO,	39);
+		u3.adicionarPontos(TOPICO,	40);
 		u4.adicionarPontos(MOEDA,	10);
-		List<Usuario> resultadoEsperado = new ArrayList<>(Arrays.asList(u1, u2, u3, u4));
 		
-		assertThat(resultadoObtido, is(resultadoEsperado));
+		assertThat(resultadoObtido.toArray(), ArrayMatching.arrayContainingInAnyOrder(u1, u2, u3, u4));
 	}
 	
 	@AfterEach

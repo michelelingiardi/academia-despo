@@ -37,10 +37,17 @@ public class ArmazenamentoArquivo implements Armazenamento {
 	}
 
 	private void substituirRegistroSeUsuarioJaExiste(Usuario usuario, List<String> dadosDoArquivo) {
-		for (int i = 0; i < dadosDoArquivo.size(); i++) {
+		boolean novoUsuario = true;
+		for (int i = 0; i < dadosDoArquivo.size() ; i++) {
 			if (this.extrairUsuario(dadosDoArquivo.get(i)).equalsIgnoreCase(usuario.getNome())) {
 				dadosDoArquivo.set(i, usuario.toString());
+				novoUsuario = false;
+				break;
 			}
+		}
+		
+		if (novoUsuario) {
+			dadosDoArquivo.add(usuario.toString());
 		}
 	}
 

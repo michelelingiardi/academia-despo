@@ -110,6 +110,19 @@ public class PlacarIT {
 				() -> placar.registrarPontoParaUsuario(ESTRELA, "=tricia", 10));
 	}
 	
+	@Test
+	@DisplayName("Impedir nomenclatura de pontos contendo caracteres especiais.")
+	public void impedirPontosComCaracteresEspeciais() {
+		Placar placar = new Placar(new ArmazenamentoArquivo(NOME_DO_ARQUIVO));
+		
+		assertThrows(CaracteresInvalidosException.class, 
+				() -> placar.registrarPontoParaUsuario("=topico", USUARIO_1, 10));
+		assertThrows(CaracteresInvalidosException.class, 
+				() -> placar.registrarPontoParaUsuario("moed;a", USUARIO_1, 10));
+		assertThrows(CaracteresInvalidosException.class, 
+				() -> placar.registrarPontoParaUsuario("estrela:", USUARIO_1, 10));
+	}
+	
 	@AfterEach
 	private void excluirArquivo() throws IOException {
 		Path arquivo = Paths.get(NOME_DO_ARQUIVO);

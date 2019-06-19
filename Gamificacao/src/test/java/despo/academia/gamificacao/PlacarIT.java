@@ -31,7 +31,7 @@ public class PlacarIT {
 	@Test
 	@DisplayName("Registrar diferentes pontos para usuário.")
 	public void registrarPontosParaUsuario() throws IOException {
-		String[] resultadoEsperado = { "mcmillan:moeda=20;estrela=150;" };
+		String[] resultadoEsperado = { USUARIO_1 + ":" + MOEDA + "=20;" + ESTRELA + "=150;" };
 		
 		Path arquivo = Paths.get(NOME_DO_ARQUIVO);
 		assertFalse(Files.exists(arquivo));

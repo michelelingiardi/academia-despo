@@ -109,7 +109,7 @@ public class ArmazenamentoTest {
 	
 	@AfterEach
 	private void excluirArquivo() throws IOException {
-		Path arquivo = Paths.get("testeArmazenamentoPontuacao.txt");
+		Path arquivo = Paths.get(NOME_DO_ARQUIVO);
 		Files.deleteIfExists(arquivo);
 	}
 }

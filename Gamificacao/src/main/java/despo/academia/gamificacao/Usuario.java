@@ -33,6 +33,12 @@ public class Usuario {
 		}
 	}
 	
+	public void removerPontos(String tipoPonto, Integer quantidadePontos) {
+		if (quantidadePontos > 0) {
+			this.pontuacao.removerPontos(tipoPonto, quantidadePontos);
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return nome + ":" + pontuacao;
@@ -67,5 +73,5 @@ public class Usuario {
 		} else if (!pontuacao.equals(other.pontuacao))
 			return false;
 		return true;
-	}	
+	}
 }

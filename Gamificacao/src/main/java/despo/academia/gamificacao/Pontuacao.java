@@ -16,10 +16,25 @@ public class Pontuacao {
 	}
 	
 	public void adicionarPontos(String tipoPonto, Integer quantidadePontos) {
+		if (quantidadePontos < 0) {
+			throw new RuntimeException("Apenas números positivos, pls.");
+		}
 		validarNomenclaturaPonto(tipoPonto);
 		Integer pontuacaoAtual = this.getPontos(tipoPonto);
 		pontos.put(tipoPonto, pontuacaoAtual + quantidadePontos);	
 		ordenarPontosPorNome();
+	}
+
+	public void removerPontos(String tipoPonto, Integer quantidadePontos) {
+		if (quantidadePontos < 0) {
+			throw new RuntimeException("Apenas números positivos, pls.");
+		}
+		validarNomenclaturaPonto(tipoPonto);
+		Integer pontuacaoAtual = this.getPontos(tipoPonto);
+		if (pontuacaoAtual > quantidadePontos) {
+			pontos.put(tipoPonto, pontuacaoAtual - quantidadePontos);
+			ordenarPontosPorNome();
+		}
 	}
 
 	private void validarNomenclaturaPonto(String tipoPonto) {
@@ -77,7 +92,4 @@ public class Pontuacao {
 		}
 		return true;
 	}
-	
-	
-
 }

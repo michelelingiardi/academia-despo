@@ -15,9 +15,14 @@ public class Placar {
 
 	public void registrarPontoParaUsuario(String tipoPonto, String nomeUsuario, int pontos) {
 		Usuario usuario = armazenamento.recuperarUsuario(nomeUsuario);
-		if (pontos > 0) {
-			usuario.adicionarPontos(tipoPonto, pontos);
-			armazenamento.armazenarPontuacao(usuario);
+		if (pontos != 0) {
+			if (pontos > 0) {
+				usuario.adicionarPontos(tipoPonto, pontos);
+				armazenamento.armazenarPontuacao(usuario);
+			} else if (usuario.getPontos(tipoPonto) > (pontos*-1)) {
+				usuario.removerPontos(tipoPonto, pontos*-1);
+				armazenamento.armazenarPontuacao(usuario);
+			}
 		}
 	}
 

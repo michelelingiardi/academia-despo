@@ -85,23 +85,50 @@ public class ArmazenamentoArquivo implements Armazenamento {
 	}
 
 	private String extrairUsuario(String registro) {
-		return separarUsuarioDePontuacao(registro)[0];
+		try {
+			return separarUsuarioDePontuacao(registro)[0];
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ArquivoInvalidoException("Erro ler o arquivo.");
+		}
 	}
 
 	private String extrairTodasPontuacoes(String registro) {
-		return separarUsuarioDePontuacao(registro)[1];
+		try {
+			return separarUsuarioDePontuacao(registro)[1];
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ArquivoInvalidoException("Erro ler o arquivo.");
+		}
+		
 	}
 	
 	private String[] separarTiposDePontuacao(String registro) {
-		return extrairTodasPontuacoes(registro).split(SEPARADOR_TIPO_PONTO);
+		try {
+			return extrairTodasPontuacoes(registro).split(SEPARADOR_TIPO_PONTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ArquivoInvalidoException("Erro ler o arquivo.");
+		}
 	}
 	
 	private String recuperarTipoPonto(String tipoPontoQuantidade) {
-		return tipoPontoQuantidade.split(SEPARADOR_QUANTIDADE_PONTOS)[0];
+		try {
+			return tipoPontoQuantidade.split(SEPARADOR_QUANTIDADE_PONTOS)[0];
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ArquivoInvalidoException("Erro ler o arquivo.");
+		}
 	}
 	
 	private Integer recuperarQuantidade(String tipoPontoQuantidade) {
-		return Integer.valueOf(tipoPontoQuantidade.split(SEPARADOR_QUANTIDADE_PONTOS)[1]);
+		try {
+			return Integer.valueOf(tipoPontoQuantidade.split(SEPARADOR_QUANTIDADE_PONTOS)[1]);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ArquivoInvalidoException("Erro ler o arquivo.");
+		}
+		
 	}
 	
 	private Usuario criarUsuario(String nomeUsuario, String[] pontuacaoPorTipo) {

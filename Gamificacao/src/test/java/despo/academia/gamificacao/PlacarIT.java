@@ -8,6 +8,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.ArrayMatching.arrayContainingInAnyOrder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -29,7 +30,6 @@ public class PlacarIT {
 	public static final String USUARIO_2 = "fenchurch";
 	public static final String USUARIO_3 = "prefect";
 	public static final String USUARIO_4 = "ar_dent";
-	
 	
 	@Test
 	@DisplayName("Registrar diferentes pontos para usuário.")
@@ -95,6 +95,19 @@ public class PlacarIT {
 		Pontuacao pontuacaoObtida = placar.recuperarPontuacaoDoUsuario(USUARIO_3);
 		
 		assertEquals(ESTRELA + "=10;" + MOEDA + "=30;" + TOPICO + "=15;", pontuacaoObtida.toString());
+	}
+	
+	@Test
+	@DisplayName("Impedir registro de nome de usuário com caracteres especiais.")
+	public void impedirNomeDeUsuarioComCaracteresEspeciais() {
+		Placar placar = new Placar(new ArmazenamentoArquivo(NOME_DO_ARQUIVO));
+		
+		assertThrows(CaracteresInvalidosException.class, 
+				() -> placar.registrarPontoParaUsuario(ESTRELA, "zaphod:beeblebrox", 10));
+		assertThrows(CaracteresInvalidosException.class, 
+				() -> placar.registrarPontoParaUsuario(ESTRELA, "arthurdent;", 10));
+		assertThrows(CaracteresInvalidosException.class, 
+				() -> placar.registrarPontoParaUsuario(ESTRELA, "=tricia", 10));
 	}
 	
 	@AfterEach

@@ -20,8 +20,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlacarIT {
-	public static final String NOME_DO_ARQUIVO = "placarTesteIntegracao";
-	public static final String EXTENSAO_DO_ARQUIVO = ".txt";
+	public static final String NOME_DO_ARQUIVO 		= "placarTesteIntegracao";
+	public static final String EXTENSAO_DO_ARQUIVO 	= ".txt";
+	
+	private static final String SEPARADOR_USUARIO 			= ":";
+	private static final String SEPARADOR_TIPO_PONTO 		= ";";
+	private static final String SEPARADOR_QUANTIDADE_PONTOS = "=";
 
 	public static final String ESTRELA 	= "estrela";
 	public static final String MOEDA 	= "moeda";
@@ -36,9 +40,9 @@ public class PlacarIT {
 	@Test
 	@DisplayName("Registrar diferentes pontos para usuário.")
 	public void registrarPontosParaUsuario() throws IOException {
-		String[] resultadoEsperado = { USUARIO_1 + ":" + ESTRELA + "=150;" + MOEDA + "=20;"};
+		String[] resultadoEsperado = { USUARIO_1 + SEPARADOR_USUARIO + ESTRELA + SEPARADOR_QUANTIDADE_PONTOS + "150" + SEPARADOR_TIPO_PONTO + MOEDA + SEPARADOR_QUANTIDADE_PONTOS + "20" + SEPARADOR_TIPO_PONTO};
 		
-		Path arquivo = Paths.get(NOME_DO_ARQUIVO + EXTENSAO_DO_ARQUIVO);
+		Path arquivo = criarArquivo();
 		assertFalse(Files.exists(arquivo));
 		
 		Placar placar = new Placar(new ArmazenamentoArquivo(NOME_DO_ARQUIVO));
@@ -53,7 +57,7 @@ public class PlacarIT {
 	
 	@Test
 	@DisplayName("Registrar diferentes tipos de ponto para usuários distintos.")
-	public void registrarDiferentesPontosParaUsuariosDiversos() {
+	public void registrarDiferentesPontosParaUsuariosDiversos() throws IOException {
 		ArmazenamentoArquivo armazenamento = new ArmazenamentoArquivo(NOME_DO_ARQUIVO);
 		Placar placar = new Placar(armazenamento);
 		placar.registrarPontoParaUsuario(ESTRELA, 	USUARIO_1,  0);
@@ -66,7 +70,6 @@ public class PlacarIT {
 		placar.registrarPontoParaUsuario(TOPICO, 	USUARIO_2, 60);
 		placar.registrarPontoParaUsuario(MOEDA, 	USUARIO_4, 10);
 		List<Usuario> resultadoObtido = armazenamento.recuperarUsuarios();
-		
 		Usuario u1 = new Usuario(USUARIO_1);
 		Usuario u2 = new Usuario(USUARIO_2);
 		Usuario u3 = new Usuario(USUARIO_3);
@@ -77,26 +80,25 @@ public class PlacarIT {
 		u2.adicionarPontos(TOPICO, 	60);
 		u3.adicionarPontos(TOPICO,	40);
 		u4.adicionarPontos(MOEDA,	10);
-		
 		assertThat(resultadoObtido.toArray(), arrayContainingInAnyOrder(u1, u2, u3, u4));
 	}
 	
 	@Test
 	@DisplayName("Recuperar pontuação de determinado usuário.")
 	public void recuperarPontuacaoUsuario() throws IOException {
-		Path arquivo = Paths.get(NOME_DO_ARQUIVO + EXTENSAO_DO_ARQUIVO);
+		Path arquivo = criarArquivo();
 		Files.createFile(arquivo);
 		List<String> dadosDoArquivo = new ArrayList<>();
-		dadosDoArquivo.add(USUARIO_1 + ":" + MOEDA + "=50;");
-		dadosDoArquivo.add(USUARIO_2 + ":" + MOEDA + "=40;" + ESTRELA + "=5;");
-		dadosDoArquivo.add(USUARIO_3 + ":" + MOEDA + "=30;" + ESTRELA + "=10;" + TOPICO + "=15;");
-		dadosDoArquivo.add(USUARIO_4 + ":" + CURTIDA + "=5;");
+		dadosDoArquivo.add(USUARIO_1 + SEPARADOR_USUARIO + MOEDA + SEPARADOR_QUANTIDADE_PONTOS + "50" + SEPARADOR_TIPO_PONTO);
+		dadosDoArquivo.add(USUARIO_2 + SEPARADOR_USUARIO + MOEDA + SEPARADOR_QUANTIDADE_PONTOS + "40" + SEPARADOR_TIPO_PONTO + ESTRELA + SEPARADOR_QUANTIDADE_PONTOS + "5" + SEPARADOR_TIPO_PONTO);
+		dadosDoArquivo.add(USUARIO_3 + SEPARADOR_USUARIO + MOEDA + SEPARADOR_QUANTIDADE_PONTOS + "30" + SEPARADOR_TIPO_PONTO + ESTRELA + SEPARADOR_QUANTIDADE_PONTOS + "10" + SEPARADOR_TIPO_PONTO + TOPICO + SEPARADOR_QUANTIDADE_PONTOS + "15" + SEPARADOR_TIPO_PONTO);
+		dadosDoArquivo.add(USUARIO_4 + SEPARADOR_USUARIO + CURTIDA + SEPARADOR_QUANTIDADE_PONTOS + "5" + SEPARADOR_TIPO_PONTO);
 		Files.write(arquivo, dadosDoArquivo, StandardCharsets.UTF_8);
 		
 		Placar placar = new Placar(new ArmazenamentoArquivo(NOME_DO_ARQUIVO));
 		Pontuacao pontuacaoObtida = placar.recuperarPontuacaoDoUsuario(USUARIO_3);
 		
-		assertEquals(ESTRELA + "=10;" + MOEDA + "=30;" + TOPICO + "=15;", pontuacaoObtida.toString());
+		assertEquals(ESTRELA + SEPARADOR_QUANTIDADE_PONTOS + "10" + SEPARADOR_TIPO_PONTO + MOEDA + SEPARADOR_QUANTIDADE_PONTOS + "30" + SEPARADOR_TIPO_PONTO + TOPICO + SEPARADOR_QUANTIDADE_PONTOS + "15" + SEPARADOR_TIPO_PONTO, pontuacaoObtida.toString());
 	}
 	
 	@Test
@@ -107,7 +109,7 @@ public class PlacarIT {
 		assertThrows(CaracteresInvalidosException.class, 
 				() -> placar.registrarPontoParaUsuario(ESTRELA, "zaphod:beeblebrox", 10));
 		assertThrows(CaracteresInvalidosException.class, 
-				() -> placar.registrarPontoParaUsuario(ESTRELA, "arthurdent;", 10));
+				() -> placar.registrarPontoParaUsuario(ESTRELA, "arthurdent" + SEPARADOR_TIPO_PONTO, 10));
 		assertThrows(CaracteresInvalidosException.class, 
 				() -> placar.registrarPontoParaUsuario(ESTRELA, "=tricia", 10));
 	}
@@ -127,7 +129,11 @@ public class PlacarIT {
 	
 	@AfterEach
 	private void excluirArquivo() throws IOException {
-		Path arquivo = Paths.get(NOME_DO_ARQUIVO + EXTENSAO_DO_ARQUIVO);
+		Path arquivo = criarArquivo();
 		Files.deleteIfExists(arquivo);
+	}
+
+	private Path criarArquivo() {
+		return Paths.get(NOME_DO_ARQUIVO + EXTENSAO_DO_ARQUIVO);
 	}
 }

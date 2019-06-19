@@ -27,7 +27,7 @@ public class ArmazenamentoTest {
 	public static final String NOME_DO_ARQUIVO = "testeArmazenamentoPontuacao";
 	public static final String EXTENSAO_DO_ARQUIVO = ".txt";
 	
-	ArmazenamentoArquivo armazenamento;
+	private ArmazenamentoArquivo armazenamento;
 	
 	@BeforeEach
 	public void inicializarArmazenamento() {
@@ -40,7 +40,7 @@ public class ArmazenamentoTest {
 		Usuario usuario = new Usuario("guerra");
 		usuario.adicionarPontos(ESTRELA, 7);
 		armazenamento.armazenarPontuacao(usuario);
-		Path arquivo = Paths.get(NOME_DO_ARQUIVO + EXTENSAO_DO_ARQUIVO);
+		Path arquivo = criarPath();
 		assertTrue(Files.exists(arquivo));
 		assertThat(usuario.toString(), is(armazenamento.recuperarUsuario("guerra").toString()));
 	}
@@ -48,8 +48,7 @@ public class ArmazenamentoTest {
 	@Test
 	@DisplayName("Armazenar pontuação para usuário já existente.")
 	public void armazenarPontuacaoUsuarioExistente() throws IOException {
-		Path arquivo = Paths.get(NOME_DO_ARQUIVO + EXTENSAO_DO_ARQUIVO);
-		Files.write(arquivo, Arrays.asList("marv:estrela=7;","arthur_dent:estrela=1;curtida=4;"), StandardCharsets.UTF_8);
+		criarArquivo(Arrays.asList("marv:estrela=7;","arthur_dent:estrela=1;curtida=4;"));		
 		Usuario usuario = new Usuario("marv");
 		usuario.adicionarPontos(CURTIDA, 1);
 		usuario.adicionarPontos(MOEDA, 10);
@@ -67,12 +66,14 @@ public class ArmazenamentoTest {
 		assertThat(resultadoObtido.toString(), is(resultadoEsperado.toString()));
 	}
 	
+	private void criarArquivo(List<String> conteudoDoArquivo) throws IOException {
+		Files.write(criarPath(), conteudoDoArquivo, StandardCharsets.UTF_8);
+	}
+
 	@Test
 	@DisplayName("Retornar todos os usuários que já receberam algum tipo de ponto.")
 	public void recuperarPontuacaoTodosUsuarios() throws IOException {		
-		Path arquivo = Paths.get(NOME_DO_ARQUIVO + EXTENSAO_DO_ARQUIVO);
-		Files.write(arquivo, Arrays.asList("marv:estrela=7;","arthur_dent:estrela=1;curtida=4;"), StandardCharsets.UTF_8);
-		
+		criarArquivo(Arrays.asList("marv:estrela=7;","arthur_dent:estrela=1;curtida=4;"));
 		Usuario usuario1 = new Usuario("marv");
 		usuario1.adicionarPontos(ESTRELA, 7);
 		Usuario usuario2 = new Usuario("arthur_dent");
@@ -90,27 +91,25 @@ public class ArmazenamentoTest {
 	@Test
 	@DisplayName("Retornar todos os tipos de ponto que já foram registrados para algum usuário.")
 	public void recuperarPontuacaoUsuario() throws IOException {
-		Path arquivo = Paths.get(NOME_DO_ARQUIVO + EXTENSAO_DO_ARQUIVO);
-		Files.write(arquivo, Arrays.asList("marv:estrela=7;","arthur_dent:estrela=1;curtida=4;"), StandardCharsets.UTF_8);
-		
+		criarArquivo(Arrays.asList("marv:estrela=7;","arthur_dent:estrela=1;curtida=4;"));
 		Usuario resultadoEsperado = new Usuario("marv");
 		resultadoEsperado.adicionarPontos(ESTRELA, 7);
-		
 		assertThat(armazenamento.recuperarUsuario("marv").toString(), is(resultadoEsperado.toString()));
 	}
 	
 	@Test
 	@DisplayName("Recuperar quantos pontos de um tipo tem um usuário.")
 	public void recuperarQuantidadeDePontosDoUsuario() throws IOException {
-		Path arquivo = Paths.get(NOME_DO_ARQUIVO + EXTENSAO_DO_ARQUIVO);
-		Files.write(arquivo, Arrays.asList("marv:estrela=7;","arthur_dent:estrela=1;curtida=4;"), StandardCharsets.UTF_8);
-		
+		Files.write(criarPath(), Arrays.asList("marv:estrela=7;","arthur_dent:estrela=1;curtida=4;"), StandardCharsets.UTF_8);
 		assertThat(armazenamento.recuperarPontos(ESTRELA, "arthur_dent"), is(1));
 	}
 	
 	@AfterEach
 	private void excluirArquivo() throws IOException {
-		Path arquivo = Paths.get(NOME_DO_ARQUIVO + EXTENSAO_DO_ARQUIVO);
-		Files.deleteIfExists(arquivo);
+		Files.deleteIfExists(criarPath());
+	}
+
+	private Path criarPath() {
+		return Paths.get(NOME_DO_ARQUIVO + EXTENSAO_DO_ARQUIVO);
 	}
 }

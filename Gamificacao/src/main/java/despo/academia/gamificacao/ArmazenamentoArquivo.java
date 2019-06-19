@@ -11,7 +11,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ArmazenamentoArquivo implements Armazenamento {
-	private static final String EXTENSAO_ARQUIVO = ".txt";
+	private static final String EXTENSAO_ARQUIVO			= ".txt";
+	private static final String SEPARADOR_USUARIO 			= ":";
+	private static final String SEPARADOR_TIPO_PONTO 		= ";";
+	private static final String SEPARADOR_QUANTIDADE_PONTOS = "=";
 	
 	private Path arquivo;
 	
@@ -78,7 +81,7 @@ public class ArmazenamentoArquivo implements Armazenamento {
 	}
 	
 	private String[] separarUsuarioDePontuacao(String registro) {
-		return registro.split(":");
+		return registro.split(SEPARADOR_USUARIO);
 	}
 
 	private String extrairUsuario(String registro) {
@@ -90,15 +93,15 @@ public class ArmazenamentoArquivo implements Armazenamento {
 	}
 	
 	private String[] separarTiposDePontuacao(String registro) {
-		return extrairTodasPontuacoes(registro).split(";");
+		return extrairTodasPontuacoes(registro).split(SEPARADOR_TIPO_PONTO);
 	}
 	
 	private String recuperarTipoPonto(String tipoPontoQuantidade) {
-		return tipoPontoQuantidade.split("=")[0];
+		return tipoPontoQuantidade.split(SEPARADOR_QUANTIDADE_PONTOS)[0];
 	}
 	
 	private Integer recuperarQuantidade(String tipoPontoQuantidade) {
-		return Integer.valueOf(tipoPontoQuantidade.split("=")[1]);
+		return Integer.valueOf(tipoPontoQuantidade.split(SEPARADOR_QUANTIDADE_PONTOS)[1]);
 	}
 	
 	private Usuario criarUsuario(String nomeUsuario, String[] pontuacaoPorTipo) {

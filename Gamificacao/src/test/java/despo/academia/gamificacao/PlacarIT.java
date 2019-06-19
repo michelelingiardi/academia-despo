@@ -50,7 +50,7 @@ public class PlacarIT {
 	
 	@Test
 	@DisplayName("Registrar diferentes tipos de ponto para usuários distintos.")
-	public void registrarPontosParaDiferentesUsuarios() {
+	public void registrarDiferentesPontosParaUsuariosDiversos() {
 		ArmazenamentoArquivo armazenamento = new ArmazenamentoArquivo(NOME_DO_ARQUIVO);
 		Placar placar = new Placar(armazenamento);
 		placar.registrarPontoParaUsuario(ESTRELA, 	USUARIO_1,  0);

@@ -16,7 +16,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.jupiter.api.Test;
 
 public class PlacarTest {
-	
 	ArmazenamentoMock mock;	
 	Placar placar;
 	
@@ -67,7 +66,21 @@ public class PlacarTest {
 		pontuacaoEsperada.adicionarPontos(MOEDA, 1);
 		
 		Pontuacao pontuacao = placar.recuperarPontuacaoDoUsuario("guerra");
+		assertThat(pontuacao, is(pontuacaoEsperada));
+	}
+	
+	@Test
+	@DisplayName("Retirar pontos de usuário.")
+	public void registrarPontuacaoNegativa() {
+		Usuario usuario = new Usuario("zaphod");
+		usuario.adicionarPontos(ESTRELA, 10);
+		mock.armazenarPontuacao(usuario);
+		placar.registrarPontoParaUsuario(ESTRELA, "zaphod", -9);
 		
+		Pontuacao pontuacaoEsperada = new Pontuacao();
+		pontuacaoEsperada.adicionarPontos(ESTRELA, 1);
+		
+		Pontuacao pontuacao = placar.recuperarPontuacaoDoUsuario("zaphod");
 		assertThat(pontuacao, is(pontuacaoEsperada));
 	}
 	

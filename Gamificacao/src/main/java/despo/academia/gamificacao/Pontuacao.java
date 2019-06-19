@@ -16,9 +16,15 @@ public class Pontuacao {
 	}
 	
 	public void adicionarPontos(String tipoPonto, Integer quantidadePontos) {
+		validarNomenclaturaPonto(tipoPonto);
 		Integer pontuacaoAtual = this.getPontos(tipoPonto);
 		pontos.put(tipoPonto, pontuacaoAtual + quantidadePontos);	
 		ordenarPontosPorNome();
+	}
+
+	private void validarNomenclaturaPonto(String tipoPonto) {
+		if (!tipoPonto.matches("^[a-zA-Z0-9_]*$"))
+			throw new CaracteresInvalidosException("Nomenclatura do ponto deve conter apenas caracteres alfanuméricos.");
 	}
 
 	private void ordenarPontosPorNome() {

@@ -12,7 +12,7 @@ public class Usuario {
 
 	private void validarNome(String nomeUsuario) {
 		if (!nomeUsuario.matches("^[a-zA-Z0-9_]*$"))
-			throw new CaracteresInvalidosException();
+			throw new CaracteresInvalidosException("Nome de usuário deve conter apenas caracteres alfanuméricos.");
 	}
 
 	public String getNome() {

@@ -20,7 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlacarIT {
-	public static final String NOME_DO_ARQUIVO = "placarTesteIntegracao.txt";
+	public static final String NOME_DO_ARQUIVO = "placarTesteIntegracao";
+	public static final String EXTENSAO_DO_ARQUIVO = ".txt";
+
 	public static final String ESTRELA 	= "estrela";
 	public static final String MOEDA 	= "moeda";
 	public static final String TOPICO 	= "topico";
@@ -36,7 +38,7 @@ public class PlacarIT {
 	public void registrarPontosParaUsuario() throws IOException {
 		String[] resultadoEsperado = { USUARIO_1 + ":" + ESTRELA + "=150;" + MOEDA + "=20;"};
 		
-		Path arquivo = Paths.get(NOME_DO_ARQUIVO);
+		Path arquivo = Paths.get(NOME_DO_ARQUIVO + EXTENSAO_DO_ARQUIVO);
 		assertFalse(Files.exists(arquivo));
 		
 		Placar placar = new Placar(new ArmazenamentoArquivo(NOME_DO_ARQUIVO));
@@ -82,7 +84,7 @@ public class PlacarIT {
 	@Test
 	@DisplayName("Recuperar pontuação de determinado usuário.")
 	public void recuperarPontuacaoUsuario() throws IOException {
-		Path arquivo = Paths.get(NOME_DO_ARQUIVO);
+		Path arquivo = Paths.get(NOME_DO_ARQUIVO + EXTENSAO_DO_ARQUIVO);
 		Files.createFile(arquivo);
 		List<String> dadosDoArquivo = new ArrayList<>();
 		dadosDoArquivo.add(USUARIO_1 + ":" + MOEDA + "=50;");
@@ -125,7 +127,7 @@ public class PlacarIT {
 	
 	@AfterEach
 	private void excluirArquivo() throws IOException {
-		Path arquivo = Paths.get(NOME_DO_ARQUIVO);
+		Path arquivo = Paths.get(NOME_DO_ARQUIVO + EXTENSAO_DO_ARQUIVO);
 		Files.deleteIfExists(arquivo);
 	}
 }

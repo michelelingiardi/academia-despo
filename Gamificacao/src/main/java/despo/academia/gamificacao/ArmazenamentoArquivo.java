@@ -11,10 +11,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ArmazenamentoArquivo implements Armazenamento {
+	private static final String EXTENSAO_ARQUIVO = ".txt";
+	
 	private Path arquivo;
 	
 	public ArmazenamentoArquivo(String nomeDoArquivo) {
-		this.arquivo = Paths.get(nomeDoArquivo);
+		this.arquivo = Paths.get(nomeDoArquivo + EXTENSAO_ARQUIVO);
 	}
 	
 	@Override

@@ -16,14 +16,22 @@ public class Placar {
 	public void registrarPontoParaUsuario(String tipoPonto, String nomeUsuario, int pontos) {
 		Usuario usuario = armazenamento.recuperarUsuario(nomeUsuario);
 		if (pontos != 0) {
-			if (pontos > 0) {
-				usuario.adicionarPontos(tipoPonto, pontos);
-				armazenamento.armazenarPontuacao(usuario);
-			} else {
-				usuario.removerPontos(tipoPonto, pontos*-1);
-				armazenamento.armazenarPontuacao(usuario);
-			}
+			adicionarOuRemoverPontos(tipoPonto, pontos, usuario);
 		}
+	}
+
+	private void adicionarOuRemoverPontos(String tipoPonto, int pontos, Usuario usuario) {
+		if (pontos > 0) {
+			usuario.adicionarPontos(tipoPonto, pontos);
+		} else {
+			usuario.removerPontos(tipoPonto, tornarPositivo(pontos));
+		}
+		armazenamento.armazenarPontuacao(usuario);
+	}
+
+	private int tornarPositivo(int pontos) {
+		if (pontos >= 0) throw new RuntimeException("Valor já é positivo.");
+		return pontos*-1;
 	}
 
 	public Pontuacao recuperarPontuacaoDoUsuario(String nomeUsuario) {

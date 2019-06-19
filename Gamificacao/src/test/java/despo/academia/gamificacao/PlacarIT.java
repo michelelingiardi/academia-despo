@@ -3,19 +3,22 @@ package despo.academia.gamificacao;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.ArrayMatching.arrayContainingInAnyOrder;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlacarIT {
-	
 	public static final String NOME_DO_ARQUIVO = "placarTesteIntegracao.txt";
 	public static final String ESTRELA 	= "estrela";
 	public static final String MOEDA 	= "moeda";
@@ -31,7 +34,7 @@ public class PlacarIT {
 	@Test
 	@DisplayName("Registrar diferentes pontos para usuário.")
 	public void registrarPontosParaUsuario() throws IOException {
-		String[] resultadoEsperado = { USUARIO_1 + ":" + MOEDA + "=20;" + ESTRELA + "=150;" };
+		String[] resultadoEsperado = { USUARIO_1 + ":" + ESTRELA + "=150;" + MOEDA + "=20;"};
 		
 		Path arquivo = Paths.get(NOME_DO_ARQUIVO);
 		assertFalse(Files.exists(arquivo));
@@ -74,6 +77,24 @@ public class PlacarIT {
 		u4.adicionarPontos(MOEDA,	10);
 		
 		assertThat(resultadoObtido.toArray(), arrayContainingInAnyOrder(u1, u2, u3, u4));
+	}
+	
+	@Test
+	@DisplayName("Recuperar pontuação de determinado usuário.")
+	public void recuperarPontuacaoUsuario() throws IOException {
+		Path arquivo = Paths.get(NOME_DO_ARQUIVO);
+		Files.createFile(arquivo);
+		List<String> dadosDoArquivo = new ArrayList<>();
+		dadosDoArquivo.add(USUARIO_1 + ":" + MOEDA + "=50;");
+		dadosDoArquivo.add(USUARIO_2 + ":" + MOEDA + "=40;" + ESTRELA + "=5;");
+		dadosDoArquivo.add(USUARIO_3 + ":" + MOEDA + "=30;" + ESTRELA + "=10;" + TOPICO + "=15;");
+		dadosDoArquivo.add(USUARIO_4 + ":" + CURTIDA + "=5;");
+		Files.write(arquivo, dadosDoArquivo, StandardCharsets.UTF_8);
+		
+		Placar placar = new Placar(new ArmazenamentoArquivo(NOME_DO_ARQUIVO));
+		Pontuacao pontuacaoObtida = placar.recuperarPontuacaoDoUsuario(USUARIO_3);
+		
+		assertEquals(ESTRELA + "=10;" + MOEDA + "=30;" + TOPICO + "=15;", pontuacaoObtida.toString());
 	}
 	
 	@AfterEach

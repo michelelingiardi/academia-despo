@@ -1,6 +1,7 @@
 package despo.academia.gamificacao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -104,6 +105,16 @@ public class PlacarTest {
 		
 		Pontuacao pontuacao = placar.recuperarPontuacaoDoUsuario(USUARIO_1);
 		assertThat(pontuacao, is(pontuacaoEsperada));
+	}
+	
+	@Test
+	@DisplayName("Impedir que usuário tenha pontuação negativa.")
+	public void impedirPontuacaoNegativa() {
+		Usuario usuario = new Usuario(USUARIO_1);
+		usuario.adicionarPontos(ESTRELA, 10);
+		usuario.adicionarPontos(MOEDA, 5);
+		mock.armazenarPontuacao(usuario);	
+		assertThrows(PontuacaoInvalidaException.class, () -> placar.registrarPontoParaUsuario(ESTRELA, USUARIO_1, -11));
 	}
 	
 	@Test

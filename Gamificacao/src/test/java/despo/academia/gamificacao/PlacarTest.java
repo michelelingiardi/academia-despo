@@ -84,6 +84,23 @@ public class PlacarTest {
 		assertThat(pontuacao, is(pontuacaoEsperada));
 	}
 	
+
+	@Test
+	@DisplayName("Retirar todos os pontos de usuário.")
+	public void retirarTodosPontosUsuario() {
+		Usuario usuario = new Usuario("zaphod");
+		usuario.adicionarPontos(ESTRELA, 10);
+		usuario.adicionarPontos(MOEDA, 5);
+		mock.armazenarPontuacao(usuario);
+		placar.registrarPontoParaUsuario(ESTRELA, "zaphod", -10);
+		
+		Pontuacao pontuacaoEsperada = new Pontuacao();
+		pontuacaoEsperada.adicionarPontos(MOEDA, 5);
+		
+		Pontuacao pontuacao = placar.recuperarPontuacaoDoUsuario("zaphod");
+		assertThat(pontuacao, is(pontuacaoEsperada));
+	}
+	
 	@Test
 	@DisplayName("Retornar ranking de um tipo de ponto, com a lista de usuário que possuem "
 			+ "aquele ponto ordenados do que possui mais para o que possui menos.")

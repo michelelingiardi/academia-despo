@@ -34,6 +34,9 @@ public class Pontuacao {
 		if (pontuacaoAtual > quantidadePontos) {
 			pontos.put(tipoPonto, pontuacaoAtual - quantidadePontos);
 			ordenarPontosPorNome();
+		} else if (pontuacaoAtual == quantidadePontos) {
+			pontos.remove(tipoPonto);
+			ordenarPontosPorNome();
 		}
 	}
 

@@ -19,7 +19,7 @@ public class Placar {
 			if (pontos > 0) {
 				usuario.adicionarPontos(tipoPonto, pontos);
 				armazenamento.armazenarPontuacao(usuario);
-			} else if (usuario.getPontos(tipoPonto) > (pontos*-1)) {
+			} else {
 				usuario.removerPontos(tipoPonto, pontos*-1);
 				armazenamento.armazenarPontuacao(usuario);
 			}

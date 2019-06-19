@@ -1,21 +1,18 @@
 package despo.academia.gamificacao;
 
-import org.hamcrest.collection.ArrayMatching;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.collection.ArrayMatching.arrayContainingInAnyOrder;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PlacarIT {
 	
@@ -33,19 +30,20 @@ public class PlacarIT {
 	
 	@Test
 	@DisplayName("Registrar diferentes pontos para usuário.")
-	public void registrarPontosParaUsuario() {
-		Map<String, Integer> resultadoEsperado = new HashMap<>();
-		resultadoEsperado.put(ESTRELA, 150);
-		resultadoEsperado.put(MOEDA, 20);
-
-		Placar placar = new Placar(new ArmazenamentoArquivo(NOME_DO_ARQUIVO));
-		String nomeUsuario = "mcmillan";		
-		placar.registrarPontoParaUsuario(ESTRELA, nomeUsuario, 100);
-		placar.registrarPontoParaUsuario(ESTRELA, nomeUsuario, 50);
-		placar.registrarPontoParaUsuario(MOEDA, nomeUsuario, 20);
+	public void registrarPontosParaUsuario() throws IOException {
+		String[] resultadoEsperado = { "mcmillan:moeda=20;estrela=150;" };
 		
-		Pontuacao resultadoObtido = placar.recuperarPontuacaoDoUsuario(nomeUsuario);
-		assertThat(resultadoObtido.getTodosOsPontos(), is(resultadoEsperado));
+		Path arquivo = Paths.get(NOME_DO_ARQUIVO);
+		assertFalse(Files.exists(arquivo));
+		
+		Placar placar = new Placar(new ArmazenamentoArquivo(NOME_DO_ARQUIVO));
+		placar.registrarPontoParaUsuario(ESTRELA, USUARIO_1, 100);
+		placar.registrarPontoParaUsuario(ESTRELA, USUARIO_1, 50);
+		placar.registrarPontoParaUsuario(MOEDA, USUARIO_1, 20);
+		
+		assertTrue(Files.exists(arquivo));
+		assertThat(Files.readAllLines(arquivo).toArray(),
+				arrayContainingInAnyOrder((Object[])resultadoEsperado));
 	}
 	
 	@Test
@@ -62,7 +60,6 @@ public class PlacarIT {
 		placar.registrarPontoParaUsuario(MOEDA, 	USUARIO_2, 30);
 		placar.registrarPontoParaUsuario(TOPICO, 	USUARIO_2, 60);
 		placar.registrarPontoParaUsuario(MOEDA, 	USUARIO_4, 10);
-		
 		List<Usuario> resultadoObtido = armazenamento.recuperarUsuarios();
 		
 		Usuario u1 = new Usuario(USUARIO_1);
@@ -76,7 +73,7 @@ public class PlacarIT {
 		u3.adicionarPontos(TOPICO,	40);
 		u4.adicionarPontos(MOEDA,	10);
 		
-		assertThat(resultadoObtido.toArray(), ArrayMatching.arrayContainingInAnyOrder(u1, u2, u3, u4));
+		assertThat(resultadoObtido.toArray(), arrayContainingInAnyOrder(u1, u2, u3, u4));
 	}
 	
 	@AfterEach

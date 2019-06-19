@@ -45,7 +45,6 @@ public class ArmazenamentoArquivo implements Armazenamento {
 				break;
 			}
 		}
-		
 		if (novoUsuario) {
 			dadosDoArquivo.add(usuario.toString());
 		}

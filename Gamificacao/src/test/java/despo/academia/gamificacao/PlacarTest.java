@@ -77,23 +77,8 @@ public class PlacarTest {
 	}
 	
 	@Test
-	@DisplayName("Retirar pontos de usuário.")
-	public void registrarPontuacaoNegativa() {
-		Usuario usuario = new Usuario(USUARIO_1);
-		usuario.adicionarPontos(ESTRELA, 10);
-		mock.armazenarPontuacao(usuario);
-		placar.registrarPontoParaUsuario(ESTRELA, USUARIO_1, -9);
-		
-		Pontuacao pontuacaoEsperada = new Pontuacao();
-		pontuacaoEsperada.adicionarPontos(ESTRELA, 1);
-		
-		Pontuacao pontuacao = placar.recuperarPontuacaoDoUsuario(USUARIO_1);
-		assertThat(pontuacao, is(pontuacaoEsperada));
-	}
-	
-	@Test
-	@DisplayName("Retirar todos os pontos de usuário.")
-	public void retirarTodosPontosUsuario() {
+	@DisplayName("Zerar pontuação do usuário.")
+	public void zerarPontuacaoDoUsuario() {
 		Usuario usuario = new Usuario(USUARIO_1);
 		usuario.adicionarPontos(ESTRELA, 10);
 		usuario.adicionarPontos(MOEDA, 5);
@@ -106,17 +91,7 @@ public class PlacarTest {
 		Pontuacao pontuacao = placar.recuperarPontuacaoDoUsuario(USUARIO_1);
 		assertThat(pontuacao, is(pontuacaoEsperada));
 	}
-	
-	@Test
-	@DisplayName("Impedir que usuário tenha pontuação negativa.")
-	public void impedirPontuacaoNegativa() {
-		Usuario usuario = new Usuario(USUARIO_1);
-		usuario.adicionarPontos(ESTRELA, 10);
-		usuario.adicionarPontos(MOEDA, 5);
-		mock.armazenarPontuacao(usuario);	
-		assertThrows(PontuacaoInvalidaException.class, () -> placar.registrarPontoParaUsuario(ESTRELA, USUARIO_1, -11));
-	}
-	
+		
 	@Test
 	@DisplayName("Retornar ranking de um tipo de ponto, com a lista de usuário que possuem "
 			+ "aquele ponto ordenados do que possui mais para o que possui menos.")

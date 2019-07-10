@@ -27,7 +27,7 @@ public class ArmazenamentoArquivo implements Armazenamento {
 	public void armazenarPontuacao(Usuario usuario) {				
 		try {
 			if (Files.exists(arquivo)) {
-				List<String> dadosDoArquivo = new ArrayList<>(Files.readAllLines(arquivo, StandardCharsets.UTF_8));
+				List<String> dadosDoArquivo = Files.readAllLines(arquivo, StandardCharsets.UTF_8);
 				substituirRegistroSeUsuarioJaExiste(usuario, dadosDoArquivo);
 				gravarArquivo(dadosDoArquivo);
 			} else {

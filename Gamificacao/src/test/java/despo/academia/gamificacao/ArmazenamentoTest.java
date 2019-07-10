@@ -39,13 +39,14 @@ public class ArmazenamentoTest {
 	
 	@Test
 	@DisplayName("Armazenar que um usuário recebeu uma quantidade de um tipo de ponto.")
-	public void armazenarPontuacaoUsuario() {
+	public void armazenarPontuacaoUsuario() throws IOException {
 		Usuario usuario = new Usuario("guerra");
 		usuario.adicionarPontos(ESTRELA, 7);
 		armazenamento.armazenarPontuacao(usuario);
 		Path arquivo = criarPath();
 		assertTrue(Files.exists(arquivo));
-		assertThat(usuario.toString(), is(armazenamento.recuperarUsuario("guerra").toString()));
+		List<String> valorArmazenado = Files.readAllLines(arquivo, StandardCharsets.UTF_8);		
+		assertThat(valorArmazenado.get(0), is("guerra:estrela=7;"));
 	}
 	
 	@Test
@@ -56,17 +57,12 @@ public class ArmazenamentoTest {
 		usuario.adicionarPontos(CURTIDA, 1);
 		usuario.adicionarPontos(MOEDA, 10);
 		armazenamento.armazenarPontuacao(usuario);
-		List<Usuario> resultadoObtido = armazenamento.recuperarUsuarios();
-				
-		Usuario u1 = new Usuario("marv");
-		u1.adicionarPontos(CURTIDA, 1);
-		u1.adicionarPontos(MOEDA, 10);
-		Usuario u2 = new Usuario("arthur_dent");
-		u2.adicionarPontos(ESTRELA, 1);
-		u2.adicionarPontos(CURTIDA, 4);
-		List<Usuario> resultadoEsperado = new ArrayList<>( Arrays.asList(u1, u2) );
 		
-		assertThat(resultadoObtido.toString(), is(resultadoEsperado.toString()));
+		Path arquivo = criarPath();
+		List<String> valorArmazenado = Files.readAllLines(arquivo, StandardCharsets.UTF_8);
+		
+		assertThat(valorArmazenado.get(0), is("marv:curtida=1;moeda=10;"));
+		assertThat(valorArmazenado.get(1), is("arthur_dent:estrela=1;curtida=4;"));		
 	}
 	
 	private void criarArquivo(List<String> conteudoDoArquivo) throws IOException {

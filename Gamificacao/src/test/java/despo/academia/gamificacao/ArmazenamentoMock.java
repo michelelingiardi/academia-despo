@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ArmazenamentoMock implements Armazenamento {
 	Map<String, Usuario> usuarios = new HashMap<>();
@@ -36,6 +37,12 @@ public class ArmazenamentoMock implements Armazenamento {
 
 	@Override
 	public Integer recuperarPontos(String tipoPonto, String nomeUsuario) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<String> recuperarTiposDePontosDoUsuario(String nomeUsuario) {
 		// TODO Auto-generated method stub
 		return null;
 	}

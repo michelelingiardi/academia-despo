@@ -12,7 +12,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -92,10 +94,11 @@ public class ArmazenamentoTest {
 	@Test
 	@DisplayName("Retornar todos os tipos de ponto que já foram registrados para algum usuário.")
 	public void recuperarPontuacaoUsuario() throws IOException {
-		criarArquivo(Arrays.asList("marv:estrela=7;","arthur_dent:estrela=1;curtida=4;"));
-		Usuario resultadoEsperado = new Usuario("marv");
-		resultadoEsperado.adicionarPontos(ESTRELA, 7);
-		assertThat(armazenamento.recuperarUsuario("marv").toString(), is(resultadoEsperado.toString()));
+		criarArquivo(Arrays.asList("marv:estrela=7;curtida=15;moeda=20","arthur_dent:topico=4;"));
+		Set<String> resultadoEsperado = new HashSet<String>();
+		resultadoEsperado.addAll(Arrays.asList(ESTRELA, CURTIDA, MOEDA));
+		
+		assertThat(armazenamento.recuperarTiposDePontosDoUsuario("marv"), is(resultadoEsperado));
 	}
 	
 	@Test

@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ArmazenamentoArquivo implements Armazenamento {
@@ -145,6 +146,13 @@ public class ArmazenamentoArquivo implements Armazenamento {
 	public Integer recuperarPontos(String tipoPonto, String nomeUsuario) {
 		Usuario usuario = this.recuperarUsuario(nomeUsuario);
 		return usuario.getPontos(tipoPonto);
+	}
+	
+	@Override
+	public Set<String> recuperarTiposDePontosDoUsuario(String nomeUsuario) {
+		Usuario usuario = this.recuperarUsuario(nomeUsuario);
+		return usuario.getPontuacao().getTodosOsPontos().keySet();
+		
 	}
 
 	private void tratarErro(IOException e) {

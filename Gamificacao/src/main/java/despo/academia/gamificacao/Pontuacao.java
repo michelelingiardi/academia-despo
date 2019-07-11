@@ -48,9 +48,7 @@ public class Pontuacao {
 	@Override
 	public String toString() {
 		StringBuilder pontosBuilder = new StringBuilder();
-		pontos.forEach((tipoPonto, quantidade) -> {
-			pontosBuilder.append(tipoPonto + "=" + quantidade + ";");
-		});
+		pontos.forEach((tipoPonto, quantidade) -> pontosBuilder.append(tipoPonto + "=" + quantidade + ";"));
 		return pontosBuilder.toString();
 	}
 

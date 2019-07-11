@@ -41,9 +41,7 @@ public class Placar {
 				.collect(Collectors.toList());
 		
 		Map<String, Integer> ranking = new LinkedHashMap<>();
-		usuarios.forEach( u -> {
-			ranking.put(u.getNome(), u.getPontos(tipoPonto));
-		});
+		usuarios.forEach( u -> ranking.put(u.getNome(), u.getPontos(tipoPonto)));
 		
 		return ranking;
 	}

@@ -57,13 +57,15 @@ public class Usuario {
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
-		} else if (!nome.equals(other.nome))
+		} else if (!nome.equals(other.nome)) {
 			return false;
+		}
 		if (pontuacao == null) {
 			if (other.pontuacao != null)
 				return false;
-		} else if (!pontuacao.equals(other.pontuacao))
+		} else if (!pontuacao.equals(other.pontuacao)) {
 			return false;
+		}
 		return true;
 	}
 }
